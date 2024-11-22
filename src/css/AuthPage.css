@@ -1,0 +1,84 @@
+/* AuthPage.css */
+.auth-page {
+    width: 100%;
+    max-width: 400px; /* Ensure the box doesn't get too wide */
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: center;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.auth-page h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.auth-page input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.auth-page input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.auth-page button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-page button:hover {
+    background-color: #0056b3;
+}
+
+.auth-page p {
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.auth-page p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.auth-page p a:hover {
+    text-decoration: underline;
+}
+
+/* Updated CSS for error messages */
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.error-message.email-error {
+    color: #f44336;
+}
+
+.error-message.password-error {
+    color: #ff9800;
+}
+
+.error-message.general-error {
+    color: #f57c00;
+}

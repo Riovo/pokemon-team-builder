@@ -1,30 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../css/HomePage.css";
 
 const HomePage = () => {
     const [pokemon, setPokemon] = useState([]);
+    const [filteredPokemon, setFilteredPokemon] = useState([]);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState("");
-    const [availableTypes, setAvailableTypes] = useState([]); // Holds all types fetched from API
-    const [filteredPokemon, setFilteredPokemon] = useState([]);
-    const [darkMode, setDarkMode] = useState(false);
+    const [availableTypes, setAvailableTypes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20;
-
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            setDarkMode(savedTheme === "dark");
-            document.body.className = savedTheme;
-        }
-    }, []);
-
-    const toggleTheme = () => {
-        const newTheme = darkMode ? "light" : "dark";
-        setDarkMode(!darkMode);
-        document.body.className = newTheme;
-        localStorage.setItem("theme", newTheme);
-    };
+    const [itemsPerPage] = useState(20);
+    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Fetch Pokémon data
@@ -38,7 +26,7 @@ const HomePage = () => {
             });
         });
 
-        // Fetch Pokémon types
+        // Fetch types
         axios.get("https://pokeapi.co/api/v2/type").then((response) => {
             const types = response.data.results.map((type) => type.name);
             setAvailableTypes(types);
@@ -46,13 +34,20 @@ const HomePage = () => {
     }, []);
 
     useEffect(() => {
+        document.body.className = darkMode ? "dark" : "light";
+        localStorage.setItem("theme", darkMode ? "dark" : "light");
+    }, [darkMode]);
+
+    useEffect(() => {
         const filtered = pokemon.filter((p) => {
             const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
             const matchesType =
                 !filterType || p.types.some((t) => t.type.name === filterType.toLowerCase());
+
             return matchesSearch && matchesType;
         });
         setFilteredPokemon(filtered);
+        setCurrentPage(1); // Reset to page 1 after filtering
     }, [search, filterType, pokemon]);
 
     const handleNextPage = () => {
@@ -72,12 +67,15 @@ const HomePage = () => {
         currentPage * itemsPerPage
     );
 
+    // Function to reset filters
+    const resetFilters = () => {
+        setSearch("");
+        setFilterType("");
+    };
+
     return (
-        <div>
-            <h1>Pokemon Team Builder</h1>
-            <button className="dark-mode-toggle" onClick={toggleTheme}>
-                {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-            </button>
+        <div className="homepage">
+            <h1>Pokémon Team Builder</h1>
             <div className="filters">
                 <input
                     type="text"
@@ -93,10 +91,23 @@ const HomePage = () => {
                         </option>
                     ))}
                 </select>
+                {/* Reset Filter Button */}
+                <button onClick={resetFilters} className="reset-filter-button">
+                    Reset Filters
+                </button>
             </div>
             <div className="pokemon-container">
                 {paginatedPokemon.map((p) => (
-                    <div key={p.id} className="pokemon-card">
+                    <div
+                        key={p.id}
+                        className="pokemon-card"
+                        onClick={() => navigate(`/pokemon/${p.id}`)} // Navigate to details page
+                        role="button"
+                        tabIndex={0} // Make div accessible for keyboard navigation
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") navigate(`/pokemon/${p.id}`);
+                        }}
+                    >
                         <img src={p.sprites.front_default} alt={p.name} />
                         <h3>{p.name.toUpperCase()}</h3>
                     </div>

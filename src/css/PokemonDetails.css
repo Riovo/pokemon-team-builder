@@ -1,0 +1,129 @@
+/* Main Container */
+.pokemon-details {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    animation: fadeIn 0.5s ease-in-out;
+    background: rgba(255, 255, 255, 0.9); /* Slightly opaque for readability */
+    color: #333;
+}
+
+/* Circle Around Pokémon */
+.pokemon-details img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #f2f2f2; /* Light gray background for circle */
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 5px solid #007bff; /* Blue stroke around the circle */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pokemon-details img:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+/* Evolution Chain */
+.evolution-chain {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.evolution-chain li {
+    text-align: center;
+    cursor: pointer;
+}
+
+.evolution-chain img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f7f7f7;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    border: 3px solid #007bff; /* Blue border for evolution images */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.evolution-chain img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #ffd700; /* Gold border on hover */
+}
+
+.evolution-chain span {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Base Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.stats li {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer; /* Changes cursor to pointer */
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stats li:hover {
+    background: #007bff; /* Blue highlight on hover */
+    color: white; /* Change text color for contrast */
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+/* Adjust Dark Theme */
+body.dark .pokemon-details {
+    background: rgba(50, 50, 50, 0.9);
+    color: #f1f1f1;
+}
+
+body.dark .stats li {
+    background: rgba(60, 60, 60, 0.8);
+    color: #e1e1e1;
+}
+
+body.dark .stats li:hover {
+    background: #555; /* Slightly lighter for hover in dark mode */
+    color: #ffd700; /* Gold text on hover in dark mode */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

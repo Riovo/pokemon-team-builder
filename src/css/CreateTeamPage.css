@@ -1,0 +1,29 @@
+.create-team-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.team-settings {
+    margin: 20px;
+}
+
+.team {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-member {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.pokemon-list .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}

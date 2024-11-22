@@ -1,34 +1,69 @@
+/* Navbar */
 .navbar {
-    background-color: #007bff;
-    padding: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    position: relative;
 }
 
 .navbar .logo {
-    color: white;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-.navbar .nav-links {
-    list-style: none;
+.nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
+    list-style: none;
 }
 
-.navbar .nav-links a {
+.nav-links a {
     text-decoration: none;
     color: white;
     font-size: 1rem;
     transition: color 0.3s ease;
 }
 
-.navbar .nav-links a:hover {
-    color: #ffd700;
+.nav-links a:hover {
+    color: #ff9100;
+}
+
+.logout-button {
+    background: none;
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: white;
+    color: #007bff;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: none;
+    border: 2px solid #ff9100;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hover Effect */
+.theme-toggle-button:hover {
+    background-color: #ff9100;
+    color: white;
+    border-color: white;
 }

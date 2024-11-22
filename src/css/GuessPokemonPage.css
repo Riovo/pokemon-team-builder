@@ -1,0 +1,10 @@
+.guess-pokemon-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.pokemon-shadow img {
+    width: 150px;
+    height: 150px;
+    margin: 20px 0;
+}

@@ -1,0 +1,18 @@
+.battle-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.players {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.player {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    background: white;
+}

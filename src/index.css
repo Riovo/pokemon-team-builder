@@ -1,4 +1,4 @@
-/* Reset and Global Styles */
+/* Global Reset and Body Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -15,18 +15,13 @@ body.dark {
   color: #f9f9f9;
 }
 
-h1 {
-  text-align: center;
-  margin: 20px;
-}
-
 /* Navbar Styling */
 .navbar {
   background-color: #007bff;
-  padding: 10px;
+  padding: 10px 20px;
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -44,52 +39,51 @@ h1 {
   background-color: #0056b3;
 }
 
-/* Dark/Light Mode Button */
-.dark-mode-toggle {
-  display: block;
-  margin: 20px auto;
+/* Dark/Light Mode Button Styling */
+.theme-toggle-button {
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
   font-size: 1rem;
-  border: none;
+  border: 2px solid #ff9100; /* Only apply the border here */
   border-radius: 25px;
+  background: none;
+  color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
 }
 
-.dark-mode-toggle:hover {
-  background-color: #0056b3;
+/* Hover effect for Dark/Light Mode button */
+.theme-toggle-button:hover {
+  background-color: #ff9100;
+  color: white;
   transform: scale(1.05);
 }
 
-/* Filters */
-.filters {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin: 20px 0;
-}
-
+/* Fix for Dark Mode Dropdown Text */
 .filters input,
 .filters select {
   padding: 10px;
-  border-radius: 5px;
+  font-size: 1rem;
   border: 1px solid #ddd;
-}
-
-.filters button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  border: none;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  min-width: 150px;
+  max-width: 250px;
+  background-color: inherit;
+  color: inherit; /* Inherit color for light mode */
+  transition: border-color 0.3s ease;
 }
 
-.filters button:hover {
-  background-color: #0056b3;
+body.dark .filters input,
+body.dark .filters select {
+  background-color: #333; /* Set dark background */
+  color: #f9f9f9; /* Ensure text is white in dark mode */
+  border-color: #555; /* Dark border for dark mode */
+}
+
+/* Focus effect for the dropdowns */
+.filters input:focus,
+.filters select:focus {
+  border-color: #007bff;
+  outline: none;
 }
 
 /* Pokémon Grid */
@@ -101,12 +95,12 @@ h1 {
 }
 
 .pokemon-card {
+  text-align: center;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
   background-color: white;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark .pokemon-card {
@@ -148,4 +142,48 @@ body.dark .pokemon-card {
 
 .pagination button:hover:not(:disabled) {
   background-color: #0056b3;
+}
+
+/* Filters Section */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Add gap between the elements */
+  align-items: center;
+  margin: 20px 0;
+}
+
+.filters input,
+.filters select,
+.filters button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: inherit;
+  color: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.reset-filter-button {
+  padding: 5px 15px;
+  border: 2px solid #ff9100;
+  background-color: #fff;
+  color: #ff9100;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.reset-filter-button:hover {
+  background-color: #ff9100;
+  color: #fff;
+  transform: scale(1.05);
 }
