@@ -1,29 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const HomePage = () => {
     const [pokemon, setPokemon] = useState([]);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState("");
+    const [availableTypes, setAvailableTypes] = useState([]); // Holds all types fetched from API
     const [filteredPokemon, setFilteredPokemon] = useState([]);
     const [darkMode, setDarkMode] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20;
 
     useEffect(() => {
-        axios
-            .get("https://pokeapi.co/api/v2/pokemon?limit=150")
-            .then((response) => {
-                const fetchDetails = response.data.results.map((p) =>
-                    axios.get(p.url).then((res) => res.data)
-                );
-                Promise.all(fetchDetails).then((details) => {
-                    setPokemon(details);
-                    setFilteredPokemon(details);
-                });
-            })
-            .catch((error) => console.error(error));
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+            setDarkMode(savedTheme === "dark");
+            document.body.className = savedTheme;
+        }
     }, []);
 
-    // Update filtered Pokémon whenever search or filterType changes
+    const toggleTheme = () => {
+        const newTheme = darkMode ? "light" : "dark";
+        setDarkMode(!darkMode);
+        document.body.className = newTheme;
+        localStorage.setItem("theme", newTheme);
+    };
+
+    useEffect(() => {
+        // Fetch Pokémon data
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=150").then((response) => {
+            const details = response.data.results.map((p) =>
+                axios.get(p.url).then((res) => res.data)
+            );
+            Promise.all(details).then((data) => {
+                setPokemon(data);
+                setFilteredPokemon(data);
+            });
+        });
+
+        // Fetch Pokémon types
+        axios.get("https://pokeapi.co/api/v2/type").then((response) => {
+            const types = response.data.results.map((type) => type.name);
+            setAvailableTypes(types);
+        });
+    }, []);
+
     useEffect(() => {
         const filtered = pokemon.filter((p) => {
             const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
@@ -34,30 +55,29 @@ const HomePage = () => {
         setFilteredPokemon(filtered);
     }, [search, filterType, pokemon]);
 
-    const toggleTheme = () => {
-        setDarkMode(!darkMode);
-        document.body.className = darkMode ? "light" : "dark";
+    const handleNextPage = () => {
+        if (currentPage * itemsPerPage < filteredPokemon.length) {
+            setCurrentPage(currentPage + 1);
+        }
     };
+
+    const handlePrevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const paginatedPokemon = filteredPokemon.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+    );
 
     return (
         <div>
             <h1>Pokemon Team Builder</h1>
-
-
-            {/* Theme Toggle */}
-            <div className="theme-toggle-container">
-                <button
-                    className="theme-toggle"
-                    onClick={toggleTheme}
-                    title={`Switch to ${darkMode ? "Light" : "Dark"} Mode`}
-                >
-                    {darkMode ? "Light Mode" : "Dark Mode"}
-                </button>
-            </div>
-
-
-
-            {/* Filters */}
+            <button className="dark-mode-toggle" onClick={toggleTheme}>
+                {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            </button>
             <div className="filters">
                 <input
                     type="text"
@@ -65,31 +85,36 @@ const HomePage = () => {
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <select
-                    value={filterType}
-                    onChange={(e) => setFilterType(e.target.value)}
-                >
+                <select onChange={(e) => setFilterType(e.target.value)} value={filterType}>
                     <option value="">All Types</option>
-                    <option value="fire">Fire</option>
-                    <option value="water">Water</option>
-                    <option value="grass">Grass</option>
-                    <option value="electric">Electric</option>
-                    <option value="psychic">Psychic</option>
-                    <option value="ice">Ice</option>
-                    <option value="dragon">Dragon</option>
-                    <option value="dark">Dark</option>
-                    <option value="fairy">Fairy</option>
+                    {availableTypes.map((type) => (
+                        <option key={type} value={type}>
+                            {type.toUpperCase()}
+                        </option>
+                    ))}
                 </select>
             </div>
-
-            {/* Pokemon Grid */}
             <div className="pokemon-container">
-                {filteredPokemon.map((p) => (
+                {paginatedPokemon.map((p) => (
                     <div key={p.id} className="pokemon-card">
                         <img src={p.sprites.front_default} alt={p.name} />
                         <h3>{p.name.toUpperCase()}</h3>
                     </div>
                 ))}
+            </div>
+            <div className="pagination">
+                <button onClick={handlePrevPage} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <span>
+                    Page {currentPage} of {Math.ceil(filteredPokemon.length / itemsPerPage)}
+                </span>
+                <button
+                    onClick={handleNextPage}
+                    disabled={currentPage * itemsPerPage >= filteredPokemon.length}
+                >
+                    Next
+                </button>
             </div>
         </div>
     );

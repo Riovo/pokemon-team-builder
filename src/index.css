@@ -1,4 +1,4 @@
-/* Global styles */
+/* Reset and Global Styles */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -11,7 +11,7 @@ body.light {
 }
 
 body.dark {
-  background-color: #333;
+  background-color: #1e1e1e;
   color: #f9f9f9;
 }
 
@@ -20,33 +20,82 @@ h1 {
   margin: 20px;
 }
 
-/* Filter and Search Bar */
+/* Navbar Styling */
+.navbar {
+  background-color: #007bff;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar a:hover {
+  background-color: #0056b3;
+}
+
+/* Dark/Light Mode Button */
+.dark-mode-toggle {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dark-mode-toggle:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Filters */
 .filters {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin: 20px 0;
 }
 
 .filters input,
 .filters select {
   padding: 10px;
-  font-size: 1rem;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
 
-.filters input:focus,
-.filters select:focus {
-  border-color: #007bff;
-  outline: none;
+.filters button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Pokemon Cards */
+.filters button:hover {
+  background-color: #0056b3;
+}
+
+/* Pokémon Grid */
 .pokemon-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
   padding: 20px;
 }
@@ -55,15 +104,14 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 15px;
-  background-color: #fff;
+  background-color: white;
   text-align: center;
-  width: 150px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 body.dark .pokemon-card {
-  background-color: #444;
-  border: 1px solid #777;
+  background-color: #2e2e2e;
+  border: 1px solid #555;
 }
 
 .pokemon-card img {
@@ -75,35 +123,29 @@ body.dark .pokemon-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Modern Theme Toggle Button */
-.theme-toggle {
-  display: inline-block;
-  padding: 10px 25px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  background: linear-gradient(45deg, #007bff, #0056b3);
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.theme-toggle:hover {
-  background: linear-gradient(45deg, #0056b3, #003d80);
-  transform: scale(1.05);
-  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
-}
-
-.theme-toggle:focus {
-  outline: none;
-  box-shadow: 0px 0px 5px #007bff;
-}
-
-.theme-toggle-container {
+/* Pagination */
+.pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 10px;
   margin: 20px 0;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
 }
