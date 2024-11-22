@@ -1,0 +1,109 @@
+/* Global styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.light {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+body.dark {
+  background-color: #333;
+  color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px;
+}
+
+/* Filter and Search Bar */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Pokemon Cards */
+.pokemon-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.pokemon-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #fff;
+  text-align: center;
+  width: 150px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .pokemon-card {
+  background-color: #444;
+  border: 1px solid #777;
+}
+
+.pokemon-card img {
+  max-width: 100%;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Modern Theme Toggle Button */
+.theme-toggle {
+  display: inline-block;
+  padding: 10px 25px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, #007bff, #0056b3);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: linear-gradient(45deg, #0056b3, #003d80);
+  transform: scale(1.05);
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px #007bff;
+}
+
+.theme-toggle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
