@@ -27,17 +27,13 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Hash password using bcrypt
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create new user with hashed password
-        const user = new User({ email, password: hashedPassword });
+        // Create new user without hashing the password
+        const user = new User({ email, password }); // Store password as it is for testing
         await user.save();
 
-        // Create JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+        // Generate a token (you can skip token generation for now if you just want to test login)
+        const token = 'test-jwt-token'; // Temporary token for testing purposes
 
-        // Send response with token
         res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
         console.error(error);
@@ -46,10 +42,12 @@ router.post('/register', async (req, res) => {
 });
 
 
+
 // Login Route
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
+    // Basic Validation
     if (!email || !password) {
         return res.status(400).json({ message: 'Email and password are required' });
     }
@@ -61,28 +59,21 @@ router.post('/login', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Log the entered password and the stored hashed password
-        console.log('Entered password:', password);
-        console.log('Stored hashed password:', user.password);
-
-        // Compare passwords (hashed password in the database vs plain text password from request)
-        const isMatch = await bcrypt.compare(password, user.password);
-        console.log('Password match result:', isMatch);  // This should log true or false
-
-        if (!isMatch) {
+        // Compare passwords directly (without hashing)
+        if (user.password !== password) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Create JWT token
-        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+        // Generate JWT token
+        const token = 'test-jwt-token'; // Temporary token for testing purposes
 
-        // Send response with token
         res.status(200).json({ message: 'Login successful', token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error, please try again later' });
     }
 });
+
 
 
 
