@@ -39,12 +39,26 @@ const App = () => {
 
     return (
         <Router>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage />} />
-            </Routes>
+            {/* Navbar is always rendered */}
+            <Navbar
+                isLoggedIn={isLoggedIn}
+                onLogout={handleLogout}
+                darkMode={darkMode}
+                toggleTheme={() => setDarkMode(!darkMode)}
+            />
+            <div className="content">
+                <Routes>
+                    {/* HomePage route */}
+                    <Route path="/" element={<HomePage />} />
+                    {/* Register and Login routes */}
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+                    {/* Conditional route for CreateTeamPage */}
+                    {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
+                    {/* PokemonDetails route with dynamic :id */}
+                    <Route path="/pokemon/:id" element={<PokemonDetails />} />
+                </Routes>
+            </div>
         </Router>
     );
 };
