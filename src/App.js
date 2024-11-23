@@ -7,8 +7,8 @@ import RegisterPage from "./pages/RegisterPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import PokemonDetails from "./pages/PokemonDetails";
 import TeamsPage from "./pages/TeamsPage";
-
 import axios from 'axios';
+import BattlePage from "./pages/BattlePage";
 
 // Check if the token exists in localStorage and set it in Axios default headers
 const token = localStorage.getItem('token');
@@ -55,11 +55,13 @@ const App = () => {
                     {/* Register and Login routes */}
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-                    {/* Conditional route for CreateTeamPage */}
+                    {/* Conditional route for Pages */}
                     {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
+                    {isLoggedIn && <Route path="/teams" element={<TeamsPage />} />}
+                    {isLoggedIn && <Route path="/battle" element={<BattlePage/>}/>}
                     {/* PokemonDetails route with dynamic :id */}
                     <Route path="/pokemon/:id" element={<PokemonDetails />} />
-                    <Route path="/teams" element={<TeamsPage />} />
+
                 </Routes>
             </div>
         </Router>

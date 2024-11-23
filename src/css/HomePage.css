@@ -1,142 +1,70 @@
-/* Reset and Global Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-body.light {
-    background-color: #f9f9f9;
-    color: #333;
-}
-
-body.dark {
-    background-color: #2e2e2e;
-    color: #f4f4f4;
-}
-
-/* Filters Section */
-.filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
-}
-
-.filters input,
-.filters select {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    min-width: 150px;
-    max-width: 250px;
-    background-color: inherit;
-    color: inherit;
-    transition: border-color 0.3s ease;
-}
-
-.filters input:focus,
-.filters select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.reset-filter-button {
-    padding: 5px 15px;
-    border: 2px solid #ff9100;
-    background-color: #fff;
-    color: #ff9100;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-}
-
-.reset-filter-button:hover {
-    background-color: #ff9100;
-    color: #fff;
-    transform: scale(1.05);
-}
-
-/* Pokémon Grid */
-.pokemon-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+.battle-page {
     padding: 20px;
-}
-
-/* Pokémon Card */
-.pokemon-card {
     text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    background: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-body.dark .pokemon-card {
-    background-color: #444;
-    border: 1px solid #777;
-}
-
-.pokemon-card:hover {
-    transform: scale(1.05);
-    background-color: #f8f8f8;
-}
-
-body.dark .pokemon-card:hover {
-    background-color: #555;
-}
-
-/* Pagination */
-.pagination {
+  }
+  
+  .teams {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .player {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin: 20px 0;
+  }
+  
+  .player img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .battle-field {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .pokemon {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+.pokemon div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
-.pagination button {
-    padding: 10px 15px;
-    border: none;
+  
+.pokemon button {
+    margin-top: 10px;
+    padding: 10px;
     background-color: #007bff;
     color: white;
-    border-radius: 5px;
+    border: none;
     cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+    border-radius: 5px;
 }
-
-.pagination button:hover {
-    background-color: #0056b3;
-}
-
-.pagination button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}
-
-.pagination span {
-    font-size: 1rem;
-}
-
-/* Page Container */
-.homepage {
-    text-align: center; /* Centers the text horizontally */
+  
+.battle-log {
+    margin-top: 30px;
     padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    width: 50%;
+    margin: 20px auto;
 }
-
-/* Heading */
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    text-align: center; /* Ensure the heading is centered */
-    display: inline-block; /* Ensures it behaves like a block element while remaining inline */
+  
+.battle-log ul {
+    list-style-type: none;
+    padding: 0;
 }
+  
+.battle-log li {
+    margin-bottom: 10px;
+}
+  
+button:hover {
+background-color: #0056b3;
+} 
