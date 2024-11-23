@@ -1,18 +1,37 @@
-/* Global Reset and Body Styles */
-body {
+/* Global Reset and Base Styles */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9; /* Light mode background */
+  color: #333;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body.light {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Light mode */
   color: #333;
 }
 
 body.dark {
-  background-color: #1e1e1e;
+  background-color: #1e1e1e; /* Dark mode */
   color: #f9f9f9;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #007bff;
 }
 
 /* Navbar Styling */
@@ -25,10 +44,10 @@ body.dark {
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar a {
-  text-decoration: none;
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
@@ -39,51 +58,29 @@ body.dark {
   background-color: #0056b3;
 }
 
-/* Dark/Light Mode Button Styling */
+/* Theme Toggle Button */
 .theme-toggle-button {
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-size: 1rem;
-  border: 2px solid #ff9100; /* Only apply the border here */
+  border: 2px solid #ff9100;
   border-radius: 25px;
   background: none;
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover effect for Dark/Light Mode button */
 .theme-toggle-button:hover {
   background-color: #ff9100;
   color: white;
   transform: scale(1.05);
 }
 
-/* Fix for Dark Mode Dropdown Text */
-.filters input,
-.filters select {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  min-width: 150px;
-  max-width: 250px;
-  background-color: inherit;
-  color: inherit; /* Inherit color for light mode */
-  transition: border-color 0.3s ease;
-}
-
-body.dark .filters input,
-body.dark .filters select {
-  background-color: #333; /* Set dark background */
-  color: #f9f9f9; /* Ensure text is white in dark mode */
-  border-color: #555; /* Dark border for dark mode */
-}
-
-/* Focus effect for the dropdowns */
-.filters input:focus,
-.filters select:focus {
-  border-color: #007bff;
-  outline: none;
+/* Content Wrapper */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /* Pokémon Grid */
@@ -101,6 +98,12 @@ body.dark .filters select {
   padding: 15px;
   background-color: white;
   transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.pokemon-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 body.dark .pokemon-card {
@@ -110,23 +113,114 @@ body.dark .pokemon-card {
 
 .pokemon-card img {
   max-width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 
-.pokemon-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.pokemon-card h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  color: inherit;
 }
+
+.type-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 5px 2px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  text-transform: capitalize;
+  color: white;
+  background-color: #555;
+}
+
+/* Pokémon Type Colors */
+.type-badge.normal {
+  background-color: #a8a878;
+}
+
+.type-badge.fire {
+  background-color: #f08030;
+}
+
+.type-badge.water {
+  background-color: #6890f0;
+}
+
+.type-badge.grass {
+  background-color: #78c850;
+}
+
+.type-badge.electric {
+  background-color: #f8d030;
+}
+
+.type-badge.ice {
+  background-color: #98d8d8;
+}
+
+.type-badge.fighting {
+  background-color: #c03028;
+}
+
+.type-badge.poison {
+  background-color: #a040a0;
+}
+
+.type-badge.ground {
+  background-color: #e0c068;
+}
+
+.type-badge.flying {
+  background-color: #a890f0;
+}
+
+.type-badge.psychic {
+  background-color: #f85888;
+}
+
+.type-badge.bug {
+  background-color: #a8b820;
+}
+
+.type-badge.rock {
+  background-color: #b8a038;
+}
+
+.type-badge.ghost {
+  background-color: #705898;
+}
+
+.type-badge.dragon {
+  background-color: #7038f8;
+}
+
+.type-badge.dark {
+  background-color: #705848;
+}
+
+.type-badge.steel {
+  background-color: #b8b8d0;
+}
+
+.type-badge.fairy {
+  background-color: #ee99ac;
+}
+
 
 /* Pagination */
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   margin: 20px 0;
 }
 
 .pagination button {
-  padding: 10px 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
   border: none;
   background-color: #007bff;
   color: white;
@@ -135,21 +229,31 @@ body.dark .pokemon-card {
   transition: background-color 0.3s ease;
 }
 
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: #ddd;
   cursor: not-allowed;
 }
 
-.pagination button:hover:not(:disabled) {
-  background-color: #0056b3;
+.pagination span {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+body.dark .pagination span {
+  color: #f9f9f9;
 }
 
 /* Filters Section */
 .filters {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Add gap between the elements */
   align-items: center;
+  gap: 15px;
   margin: 20px 0;
 }
 
@@ -171,19 +275,37 @@ body.dark .pokemon-card {
   outline: none;
 }
 
+body.dark .filters input,
+body.dark .filters select {
+  background-color: #333;
+  color: #f9f9f9;
+  border-color: #555;
+}
+
+/* Reset Filters Button */
 .reset-filter-button {
-  padding: 5px 15px;
-  border: 2px solid #ff9100;
-  background-color: #fff;
-  color: #ff9100;
-  border-radius: 5px;
+  padding: 8px 15px;
   font-size: 0.9rem;
+  border: 2px solid #ff9100;
+  border-radius: 5px;
+  background-color: white;
+  color: #ff9100;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .reset-filter-button:hover {
   background-color: #ff9100;
-  color: #fff;
+  color: white;
   transform: scale(1.05);
+}
+
+body.dark .reset-filter-button {
+  background-color: #333;
+  color: #ff9100;
+}
+
+body.dark .reset-filter-button:hover {
+  background-color: #ff9100;
+  color: white;
 }

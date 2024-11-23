@@ -1,56 +1,192 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../css/GuessPokemonPage.css";
+import "../css/CreateTeamPage.css";
+import { useNavigate } from "react-router-dom";
 
-const GuessPokemonPage = () => {
-    const [pokemon, setPokemon] = useState(null);
-    const [guess, setGuess] = useState("");
-    const [feedback, setFeedback] = useState("");
+const CreateTeamPage = () => {
+    const [pokemonList, setPokemonList] = useState([]);
+    const [team, setTeam] = useState([]);
+    const [teamName, setTeamName] = useState("");
+    const [savedTeams, setSavedTeams] = useState(
+        JSON.parse(localStorage.getItem("savedTeams")) || []
+    );
+    const [teamLimit, setTeamLimit] = useState(6);
+    const [search, setSearch] = useState("");
+    const [filterType, setFilterType] = useState("");
+    const [types, setTypes] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchRandomPokemon();
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=150").then((res) => {
+            const pokemonData = res.data.results;
+
+            const fetchDetails = pokemonData.map((pokemon) =>
+                axios.get(pokemon.url).then((response) => ({
+                    name: pokemon.name,
+                    types: response.data.types,
+                    image: response.data.sprites.other["official-artwork"].front_default,
+                    id: response.data.id,
+                }))
+            );
+
+            Promise.all(fetchDetails).then((results) => {
+                setPokemonList(results);
+                setLoading(false);
+            });
+        });
+
+        axios.get("https://pokeapi.co/api/v2/type").then((res) => {
+            setTypes(res.data.results);
+        });
     }, []);
 
-    const fetchRandomPokemon = () => {
-        const randomId = Math.floor(Math.random() * 150) + 1;
-        axios.get(`https://pokeapi.co/api/v2/pokemon/${randomId}`).then((res) => {
-            setPokemon(res.data);
-            setFeedback("");
-        });
-    };
-
-    const checkGuess = () => {
-        if (guess.toLowerCase() === pokemon.name) {
-            setFeedback("Correct! 🎉");
-            fetchRandomPokemon();
-        } else {
-            setFeedback("Try Again!");
+    const addToTeam = (pokemon) => {
+        if (team.length < teamLimit && !team.some((p) => p.name === pokemon.name)) {
+            setTeam([...team, pokemon]);
         }
-        setGuess("");
     };
 
-    if (!pokemon) return <div>Loading...</div>;
+    const removeFromTeam = (pokemon) => {
+        setTeam(team.filter((p) => p.name !== pokemon.name));
+    };
+
+    const handleSaveTeam = () => {
+        if (team.length === 0 || teamName.trim() === "") {
+            alert("Please enter a team name and add Pokémon to your team.");
+            return;
+        }
+
+        const newTeam = { name: teamName, members: team };
+        const updatedTeams = [...savedTeams, newTeam];
+        setSavedTeams(updatedTeams);
+        localStorage.setItem("savedTeams", JSON.stringify(updatedTeams));
+        setTeam([]);
+        setTeamName("");
+        alert("Team saved!");
+    };
+
+    const filteredPokemon = pokemonList.filter((pokemon) => {
+        const matchesSearch = pokemon.name.toLowerCase().includes(search.toLowerCase());
+        const matchesType =
+            !filterType || pokemon.types.some((type) => type.type.name === filterType);
+        return matchesSearch && matchesType;
+    });
 
     return (
-        <div className="guess-pokemon-page">
-            <h1>Guess That Pokémon!</h1>
-            <div className="pokemon-shadow">
-                <img
-                    src={pokemon.sprites.front_default}
-                    alt={pokemon.name}
-                    style={{ filter: "brightness(0)" }}
+        <div className="create-team-page">
+            <h1>Build Your Pokémon Team</h1>
+            <div className="team-settings">
+                <label>
+                    Team Limit:
+                    <input
+                        type="number"
+                        min="1"
+                        max="10"
+                        value={teamLimit}
+                        onChange={(e) => setTeamLimit(Number(e.target.value))}
+                    />
+                </label>
+                <input
+                    type="text"
+                    placeholder="Enter team name"
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}
                 />
+                <button onClick={handleSaveTeam} className="save-team-button">
+                    Save Team
+                </button>
+                <button
+                    onClick={() => navigate("/teams")}
+                    className="view-teams-button"
+                >
+                    View Saved Teams
+                </button>
             </div>
-            <input
-                type="text"
-                value={guess}
-                onChange={(e) => setGuess(e.target.value)}
-                placeholder="Enter Pokémon Name"
-            />
-            <button onClick={checkGuess}>Submit</button>
-            <p>{feedback}</p>
+
+            <div className="team">
+                <h2>Your Team</h2>
+                <div className="pokemon-container">
+                    {team.length > 0 ? (
+                        team.map((p) => (
+                            <div key={p.name} className="pokemon-card">
+                                <img src={p.image} alt={p.name} />
+                                <h3>{p.name.toUpperCase()}</h3>
+                                <div className="type-badges">
+                                    {p.types.map((t) => (
+                                        <span
+                                            key={t.type.name}
+                                            className={`type-badge ${t.type.name}`}
+                                        >
+                                            {t.type.name}
+                                        </span>
+                                    ))}
+                                </div>
+                                <button
+                                    onClick={() => removeFromTeam(p)}
+                                    className="remove-button"
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No Pokémon in your team yet!</p>
+                    )}
+                </div>
+            </div>
+
+            <div className="pokemon-list">
+                <h2>Available Pokémon</h2>
+                <div className="filters">
+                    <input
+                        type="text"
+                        placeholder="Search Pokémon"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <select
+                        onChange={(e) => setFilterType(e.target.value)}
+                        value={filterType}
+                    >
+                        <option value="">All Types</option>
+                        {types.map((type) => (
+                            <option key={type.name} value={type.name}>
+                                {type.name.toUpperCase()}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {loading ? (
+                    <p>Loading Pokémon...</p>
+                ) : (
+                    <div className="pokemon-container">
+                        {filteredPokemon.map((p) => (
+                            <div
+                                key={p.name}
+                                className="pokemon-card"
+                                onClick={() => addToTeam(p)}
+                            >
+                                <img src={p.image} alt={p.name} />
+                                <h3>{p.name.toUpperCase()}</h3>
+                                <div className="type-badges">
+                                    {p.types.map((t) => (
+                                        <span
+                                            key={t.type.name}
+                                            className={`type-badge ${t.type.name}`}
+                                        >
+                                            {t.type.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
 
-export default GuessPokemonPage;
+export default CreateTeamPage;

@@ -6,6 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import PokemonDetails from "./pages/PokemonDetails";
+import TeamsPage from "./pages/TeamsPage";
+
 import axios from 'axios';
 
 // Check if the token exists in localStorage and set it in Axios default headers
@@ -57,6 +59,7 @@ const App = () => {
                     {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
                     {/* PokemonDetails route with dynamic :id */}
                     <Route path="/pokemon/:id" element={<PokemonDetails />} />
+                    <Route path="/teams" element={<TeamsPage />} />
                 </Routes>
             </div>
         </Router>
