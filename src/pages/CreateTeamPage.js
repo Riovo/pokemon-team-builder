@@ -19,7 +19,7 @@ const CreateTeamPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=150").then((res) => {
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=200").then((res) => {
             const pokemonData = res.data.results;
 
             const fetchDetails = pokemonData.map((pokemon) =>

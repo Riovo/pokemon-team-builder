@@ -16,7 +16,7 @@ const HomePage = () => {
 
     useEffect(() => {
         // Fetch Pokémon data
-        axios.get("https://pokeapi.co/api/v2/pokemon?limit=150").then((response) => {
+        axios.get("https://pokeapi.co/api/v2/pokemon?limit=1000").then((response) => {
             const details = response.data.results.map((p) =>
                 axios.get(p.url).then((res) => res.data)
             );
@@ -75,7 +75,7 @@ const HomePage = () => {
 
     return (
         <div className="homepage">
-            <h1>Pokémon Team Builder</h1>
+            <h1 className="title">Pokémon Team Builder</h1>
             <div className="filters">
                 <input
                     type="text"
@@ -110,6 +110,13 @@ const HomePage = () => {
                     >
                         <img src={p.sprites.front_default} alt={p.name} />
                         <h3>{p.name.toUpperCase()}</h3>
+                        <div className="type-badges">
+                            {p.types.map((type) => (
+                                <span key={type.type.name} className={`type-badge ${type.type.name}`}>
+                                    {type.type.name}
+                                </span>
+                            ))}
+                        </div>
                     </div>
                 ))}
             </div>

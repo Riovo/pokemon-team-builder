@@ -1,23 +1,22 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f9;
-    color: #333;
-    line-height: 1.6;
-}
-
-/* Create Team Page */
+/* General Page Styling */
 .create-team-page {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-}
-
-/* Section Containers */
-.team, .pokemon-list {
+  }
+  
+  h1, h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Team Section */
+  .team {
     margin: 20px auto;
     padding: 20px;
     max-width: 900px;
@@ -26,32 +25,9 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-/* Section Headings */
-.team h2, .pokemon-list h2 {
-    font-size: 1.8rem;
-    color: #333;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-bottom: 2px solid #007bff;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-/* Team Section */
-.team {
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-}
-
-/* "No Pokémon" Message */
-.team p {
+  }
+  
+  .team p {
     font-size: 1.2rem;
     font-style: italic;
     color: #888;
@@ -59,54 +35,67 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100px; /* Adjust height for vertical alignment */
-}
-
-/* Pokémon Container */
-.pokemon-container {
+    height: 100px;
+  }
+  
+  /* Pokémon Container */
+  .pokemon-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
     justify-items: center;
-    margin-top: 20px;
-}
-
-/* Pokémon Cards */
-.pokemon-card {
+  }
+  
+  /* Pokémon Cards */
+  .pokemon-card {
     background-color: white;
     border: 2px solid #e0e0e0;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 180px; /* Fixed width for uniformity */
+    height: 300px; /* Fixed height to ensure all cards match */
     padding: 15px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pokemon-card:hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures proper spacing between elements */
+    box-sizing: border-box;
+  }
+  
+  .pokemon-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
-
-.pokemon-card img {
+  }
+  
+  .pokemon-card img {
     width: 100px;
     height: 100px;
-    margin-bottom: 10px;
-}
-
-.pokemon-card h3 {
+    margin: 0 auto;
+    object-fit: contain; /* Ensures the image fits without distortion */
+  }
+  
+  .pokemon-card h3 {
     font-size: 1.2rem;
     color: #007bff;
     margin-bottom: 8px;
     text-transform: uppercase;
-}
-
-/* Type Badges */
-.type-badges {
+    white-space: nowrap; /* Prevents text from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." if the name is too long */
+  }
+  
+  /* Type Badges */
+  .type-badges {
     margin-top: 10px;
-}
-
-.type-badge {
+    display: flex;
+    flex-wrap: wrap; /* Allows badges to wrap within the card */
+    justify-content: center;
+    gap: 5px; /* Adds spacing between badges */
+  }
+  
+  .type-badge {
     display: inline-block;
     padding: 5px 10px;
     font-size: 0.8rem;
@@ -114,68 +103,95 @@ body {
     border-radius: 12px;
     margin: 2px;
     text-transform: capitalize;
-}
-
-.type-badge.fire { background-color: #f08030; }
-.type-badge.water { background-color: #6890f0; }
-.type-badge.grass { background-color: #78c850; }
-.type-badge.electric { background-color: #f8d030; }
-.type-badge.ice { background-color: #98d8d8; }
-.type-badge.fighting { background-color: #c03028; }
-.type-badge.poison { background-color: #a040a0; }
-.type-badge.ground { background-color: #e0c068; }
-.type-badge.flying { background-color: #a890f0; }
-.type-badge.psychic { background-color: #f85888; }
-.type-badge.bug { background-color: #a8b820; }
-.type-badge.rock { background-color: #b8a038; }
-.type-badge.ghost { background-color: #705898; }
-.type-badge.dragon { background-color: #7038f8; }
-.type-badge.dark { background-color: #705848; }
-.type-badge.steel { background-color: #b8b8d0; }
-.type-badge.fairy { background-color: #f0b6bc; }
-.type-badge.normal { background-color: #a8a878; }
-
-/* Team Settings Section */
-.team-settings {
+  }
+  
+  /* Colors for Type Badges */
+  .type-badge.fire { background-color: #f08030; }
+  .type-badge.water { background-color: #6890f0; }
+  .type-badge.grass { background-color: #78c850; }
+  .type-badge.electric { background-color: #f8d030; }
+  .type-badge.ice { background-color: #98d8d8; }
+  .type-badge.fighting { background-color: #c03028; }
+  .type-badge.poison { background-color: #a040a0; }
+  .type-badge.ground { background-color: #e0c068; }
+  .type-badge.flying { background-color: #a890f0; }
+  .type-badge.psychic { background-color: #f85888; }
+  .type-badge.bug { background-color: #a8b820; }
+  .type-badge.rock { background-color: #b8a038; }
+  .type-badge.ghost { background-color: #705898; }
+  .type-badge.dragon { background-color: #7038f8; }
+  .type-badge.dark { background-color: #705848; }
+  .type-badge.steel { background-color: #b8b8d0; }
+  .type-badge.fairy { background-color: #f0b6bc; }
+  .type-badge.normal { background-color: #a8a878; }
+  
+  /* Remove Button Styling */
+  .pokemon-card .remove-button {
+    margin-top: auto; /* Pushes the button to the bottom */
+    padding: 10px;
+    background-color: #dc3545; /* Red background */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
+  }
+  
+  .pokemon-card .remove-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+    box-shadow: 0 6px 8px rgba(220, 53, 69, 0.3);
+  }
+  
+  .pokemon-card .remove-button:active {
+    background-color: #a71d2a; /* Even darker red on click */
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+  }
+  
+  /* Team Settings */
+  .team-settings {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
     gap: 20px;
     flex-wrap: wrap;
-}
-
-.team-settings label {
+  }
+  
+  .team-settings label {
     font-size: 1.2rem;
     font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.team-settings input[type="number"],
-.team-settings input[type="text"] {
+  }
+  
+  .team-settings input[type="number"],
+  .team-settings input[type="text"] {
     padding: 8px 12px;
     font-size: 1rem;
     border: 2px solid #007bff;
     border-radius: 8px;
     outline: none;
     transition: all 0.3s ease;
-}
-
-.team-settings input[type="number"]:focus,
-.team-settings input[type="text"]:focus {
+  }
+  
+  .team-settings input[type="number"]:focus,
+  .team-settings input[type="text"]:focus {
     border-color: #0056b3;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
-}
-
-.team-settings input[type="number"]:hover,
-.team-settings input[type="text"]:hover {
+  }
+  
+  .team-settings input[type="number"]:hover,
+  .team-settings input[type="text"]:hover {
     background-color: #f8f9fa;
-}
-
-/* Buttons in Team Settings */
-.team-settings button {
+  }
+  
+  /* Buttons in Team Settings */
+  .team-settings button {
     padding: 10px 20px;
     font-size: 1rem;
     border: none;
@@ -183,80 +199,59 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     text-transform: uppercase;
-}
-
-/* Save Team Button */
-.save-team-button {
-    background-color: #28a745; 
+  }
+  
+  /* Save Team Button */
+  .save-team-button {
+    background-color: #28a745;
     color: white;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 123, 32, 0.2);
-}
-
-.save-team-button:hover {
+  }
+  
+  .save-team-button:hover {
     background-color: #218838;
     box-shadow: 0 6px 8px rgba(0, 123, 32, 0.3);
-}
-
-.save-team-button:active {
-    background-color: #1e7e34; 
-}
-
-/* View Saved Teams Button */
-.view-teams-button {
-    background-color: #007bff; 
+  }
+  
+  .save-team-button:active {
+    background-color: #1e7e34;
+  }
+  
+  /* View Saved Teams Button */
+  .view-teams-button {
+    background-color: #007bff;
     color: white;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
-}
-
-.view-teams-button:hover {
-    background-color: #0056b3; 
+  }
+  
+  .view-teams-button:hover {
+    background-color: #0056b3;
     box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
-}
-
-.view-teams-button:active {
-    background-color: #004085; 
-}
-
-/* Remove Button */
-.remove-button {
-    background-color: #dc3545; /* Red background */
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
-}
-
-.remove-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-    box-shadow: 0 6px 8px rgba(220, 53, 69, 0.3);
-}
-
-.remove-button:active {
-    background-color: #a71d2a; /* Even darker red on click */
-    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .team, .pokemon-list {
-        padding: 15px;
+  }
+  
+  .view-teams-button:active {
+    background-color: #004085;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .team, .pokemon-container {
+      padding: 15px;
     }
-
+  
+    .pokemon-card {
+      width: 150px;
+      height: 250px;
+    }
+  
     .pokemon-card img {
-        width: 80px;
-        height: 80px;
+      width: 80px;
+      height: 80px;
     }
-
+  
     .pokemon-card h3 {
-        font-size: 1rem;
+      font-size: 1rem;
     }
-}
+  }  
