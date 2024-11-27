@@ -1,14 +1,11 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const teamRoutes = require('./routes/team');
 
 const app = express();
-const cors = require('cors');
-
 
 app.use(cors({
     origin: 'http://localhost:8080',
@@ -28,6 +25,10 @@ mongoose.connect('mongodb://localhost:27017/pokemon-team-builder', {
     console.log("MongoDB connection error: ", error);
 });
 
+app.use((req, res, next) => {
+    console.log('Incoming Request:', req.method, req.url);
+    next();
+});
 
 // Routes
 app.use('/api/auth', authRoutes);

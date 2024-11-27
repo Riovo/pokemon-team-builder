@@ -19,15 +19,17 @@ const LoginPage = ({ onLogin }) => {
                     'Content-Type': 'application/json',
                 },
             });
-    
-            // Store JWT token in localStorage
+
+            // Store JWT token and email in localStorage
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('userEmail', email);  // Store email to identify the user in future requests
+
             // Set login state in parent component
             onLogin();
             navigate('/');  // Redirect to home page or dashboard
             
         } catch (error) {
-            // Debugging - Log the error to see the response details
+            // Debugging 
             console.log('Login Error:', error);
             // Handle errors (e.g. invalid credentials)
             if (error.response) {

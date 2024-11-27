@@ -7,9 +7,7 @@ const CreateTeamPage = () => {
     const [pokemonList, setPokemonList] = useState([]);
     const [team, setTeam] = useState([]);
     const [teamName, setTeamName] = useState("");
-    const [savedTeams, setSavedTeams] = useState(
-        JSON.parse(localStorage.getItem("savedTeams")) || []
-    );
+    const [savedTeams, setSavedTeams] = useState(JSON.parse(localStorage.getItem("savedTeams")) || []);
     const [teamLimit, setTeamLimit] = useState(6);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState("");
@@ -21,7 +19,6 @@ const CreateTeamPage = () => {
     useEffect(() => {
         axios.get("https://pokeapi.co/api/v2/pokemon?limit=200").then((res) => {
             const pokemonData = res.data.results;
-
             const fetchDetails = pokemonData.map((pokemon) =>
                 axios.get(pokemon.url).then((response) => ({
                     name: pokemon.name,
@@ -30,13 +27,11 @@ const CreateTeamPage = () => {
                     id: response.data.id,
                 }))
             );
-
             Promise.all(fetchDetails).then((results) => {
                 setPokemonList(results);
                 setLoading(false);
             });
         });
-
         axios.get("https://pokeapi.co/api/v2/type").then((res) => {
             setTypes(res.data.results);
         });
@@ -58,13 +53,40 @@ const CreateTeamPage = () => {
             return;
         }
 
-        const newTeam = { name: teamName, members: team };
+        const teamData = team.map((pokemon) => pokemon.name);
+
+        const newTeam = { name: teamName, members: teamData };
         const updatedTeams = [...savedTeams, newTeam];
         setSavedTeams(updatedTeams);
         localStorage.setItem("savedTeams", JSON.stringify(updatedTeams));
+
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            alert("You must be logged in to save your team.");
+            return;
+        }
+
+        axios
+            .post(
+                "http://localhost:5000/api/team/add",
+                { team: teamData },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then(() => {
+                alert("Team saved!");
+            })
+            .catch((error) => {
+                console.error("Error saving team: ", error);
+                alert("There was an error saving your team.");
+            });
+
         setTeam([]);
         setTeamName("");
-        alert("Team saved!");
     };
 
     const filteredPokemon = pokemonList.filter((pokemon) => {

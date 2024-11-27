@@ -49,20 +49,15 @@ const App = () => {
                 toggleTheme={() => setDarkMode(!darkMode)}
             />
             <div className="content">
-                <Routes>
-                    {/* HomePage route */}
-                    <Route path="/" element={<HomePage />} />
-                    {/* Register and Login routes */}
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-                    {/* Conditional route for Pages */}
-                    {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
-                    {isLoggedIn && <Route path="/teams" element={<TeamsPage />} />}
-                    {isLoggedIn && <Route path="/battle" element={<BattlePage/>}/>}
-                    {/* PokemonDetails route with dynamic :id */}
-                    <Route path="/pokemon/:id" element={<PokemonDetails />} />
-
-                </Routes>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+                {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
+                {isLoggedIn && <Route path="/teams" element={<TeamsPage />} />}
+                {isLoggedIn && <Route path="/battle" element={<BattlePage />} />}
+                <Route path="/pokemon/:id" element={<PokemonDetails />} />
+            </Routes>
             </div>
         </Router>
     );

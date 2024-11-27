@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/TeamsPage.css";
 
+// Type effectiveness information
 const TYPE_EFFECTIVENESS = {
     normal: { weakTo: ["fighting"], strongAgainst: [] },
     fire: { weakTo: ["water", "rock", "ground"], strongAgainst: ["grass", "bug", "ice", "steel"] },
@@ -23,38 +24,47 @@ const TYPE_EFFECTIVENESS = {
     fairy: { weakTo: ["poison", "steel"], strongAgainst: ["fighting", "dragon", "dark"] },
 };
 
-
 const TeamsPage = () => {
-    const savedTeams = JSON.parse(localStorage.getItem("savedTeams")) || [];
+    const [teams, setTeams] = useState([]); // Initialize teams as empty array
+    const [loading, setLoading] = useState(true);
 
-    const calculateTypeSummary = (team) => {
-        const weaknesses = {};
-        const strengths = {};
+    // Fetch saved teams when the component mounts
+    useEffect(() => {
+        const token = localStorage.getItem("token");
 
-        team?.members?.forEach((pokemon) => {
-            pokemon?.types?.forEach((type) => {
-                const typeName = type.type.name;
-                const typeData = TYPE_EFFECTIVENESS[typeName] || {};
+        if (!token) {
+            alert("You must be logged in to view your teams.");
+            return;
+        }
 
-                typeData.weakTo?.forEach((weak) => {
-                    weaknesses[weak] = (weaknesses[weak] || 0) + 1;
-                });
+        axios
+            .get("http://localhost:5000/api/team/saved-teams", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                console.log("Response from backend:", response.data); // Log the backend response
 
-                typeData.strongAgainst?.forEach((strong) => {
-                    strengths[strong] = (strengths[strong] || 0) + 1;
-                });
+                const teamsData = response.data.teams || []; // Ensure teams are an array
+                setTeams(teamsData); // Set the teams data to the state
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.error("Error fetching teams: ", error);
+                alert("There was an error fetching your teams.");
+                setLoading(false);
             });
-        });
+    }, []);
 
-        return { weaknesses, strengths };
-    };
+    if (loading) {
+        return <p>Loading teams...</p>;
+    }
 
     return (
         <div className="teams-page">
-            <h1>Saved Teams</h1>
-            {savedTeams.length > 0 ? (
-                savedTeams.map((team, index) => (
-                    <TeamCard key={index} team={team} calculateTypeSummary={calculateTypeSummary} />
+            <h1>Your Saved Teams</h1>
+            {teams.length > 0 ? (
+                teams.map((team, index) => (
+                    <TeamCard key={index} team={team} />
                 ))
             ) : (
                 <p>No teams saved yet!</p>
@@ -63,9 +73,35 @@ const TeamsPage = () => {
     );
 };
 
-const TeamCard = ({ team, calculateTypeSummary }) => {
+const TeamCard = ({ team }) => {
     const [showInfo, setShowInfo] = useState(false);
-    const { weaknesses, strengths } = calculateTypeSummary(team);
+
+    // Calculate type effectiveness
+    const calculateTypeSummary = (team) => {
+        const weaknesses = {};
+        const strengths = {};
+
+        if (team && team.length > 0) {
+            team.forEach((pokemon) => {
+                pokemon.types.forEach((type) => {
+                    const typeName = type;
+                    const typeData = TYPE_EFFECTIVENESS[typeName] || {};
+
+                    typeData.weakTo?.forEach((weak) => {
+                        weaknesses[weak] = (weaknesses[weak] || 0) + 1;
+                    });
+
+                    typeData.strongAgainst?.forEach((strong) => {
+                        strengths[strong] = (strengths[strong] || 0) + 1;
+                    });
+                });
+            });
+        }
+
+        return { weaknesses, strengths };
+    };
+
+    const { weaknesses, strengths } = calculateTypeSummary(team?.members || []);
 
     return (
         <div className="team-card">
@@ -73,26 +109,30 @@ const TeamCard = ({ team, calculateTypeSummary }) => {
 
             {/* Pokémon Display */}
             <div className="pokemon-container">
-                {team?.members?.map((p) => (
-                    <div key={p?.id || p?.name} className="pokemon-card">
-                        <img src={p?.image} alt={p?.name} />
-                        <h3>{p?.name?.toUpperCase()}</h3>
-                        <div className="type-badges">
-                            {p?.types?.map((t) => (
-                                <span key={t?.type?.name} className={`type-badge ${t?.type?.name}`}>
-                                    {t?.type?.name}
-                                </span>
-                            ))}
+                {team?.members?.length > 0 ? (
+                    team.members.map((p) => (
+                        <div key={p?.id || p?.name} className="pokemon-card">
+                            <img
+                                src={p?.image || "https://via.placeholder.com/150"}
+                                alt={p?.name}
+                            />
+                            <h3>{p?.name?.toUpperCase()}</h3>
+                            <div className="type-badges">
+                                {p?.types?.map((t) => (
+                                    <span key={t} className={`type-badge ${t}`}>
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p>No Pokémon found in this team!</p>
+                )}
             </div>
 
             {/* More Info Button */}
-            <button
-                className="more-info-button"
-                onClick={() => setShowInfo((prev) => !prev)}
-            >
+            <button className="more-info-button" onClick={() => setShowInfo((prev) => !prev)}>
                 {showInfo ? "Hide Info" : "More Info"}
             </button>
 
@@ -106,7 +146,9 @@ const TeamCard = ({ team, calculateTypeSummary }) => {
                             <div className="type-list">
                                 {Object.entries(strengths).map(([type, count]) => (
                                     <div key={type} className="type-item">
-                                        <span className={`type-badge ${type.toLowerCase()}`}>{type.toUpperCase()}</span>
+                                        <span className={`type-badge ${type.toLowerCase()}`}>
+                                            {type.toUpperCase()}
+                                        </span>
                                         <span className="type-count">x{count}</span>
                                     </div>
                                 ))}
@@ -118,65 +160,19 @@ const TeamCard = ({ team, calculateTypeSummary }) => {
                             <div className="type-list">
                                 {Object.entries(weaknesses).map(([type, count]) => (
                                     <div key={type} className="type-item">
-                                        <span className={`type-badge ${type.toLowerCase()}`}>{type.toUpperCase()}</span>
+                                        <span className={`type-badge ${type.toLowerCase()}`}>
+                                            {type.toUpperCase()}
+                                        </span>
                                         <span className="type-count">x{count}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </div>
-
-                    {/* Individual Pokémon Stats */}
-                    <div className="team-stats">
-                        {team?.members?.map((p) => (
-                            <PokemonStats key={p?.id || p?.name} pokemonName={p?.name} />
-                        ))}
-                    </div>
                 </div>
             )}
         </div>
     );
 };
-
-
-const PokemonStats = ({ pokemonName }) => {
-    const [stats, setStats] = useState(null);
-
-    React.useEffect(() => {
-        axios
-            .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)
-            .then((response) => setStats(response.data.stats))
-            .catch((error) => console.error("Error fetching Pokémon stats:", error));
-    }, [pokemonName]);
-
-    if (!stats) {
-        return <p>Loading stats for {pokemonName.toUpperCase()}...</p>;
-    }
-
-    return (
-        <div className="pokemon-stats">
-            <h4>{pokemonName.toUpperCase()} Stats</h4>
-            {stats.map((stat) => (
-                <div key={stat.stat.name} className="stat">
-                    <span className="stat-name">{stat.stat.name.toUpperCase()}</span>
-                    <div className="stat-bar-container">
-                        <div
-                            className={`stat-bar ${stat.stat.name.toLowerCase()}`}
-                            style={{
-                                width: `${(stat.base_stat / 255) * 100}%`, // Scale relative to max stat
-                            }}
-                        ></div>
-                    </div>
-                    <span className="stat-value">{stat.base_stat}</span>
-                </div>
-            ))}
-        </div>
-    );
-};
-
-
-
-
-
 
 export default TeamsPage;

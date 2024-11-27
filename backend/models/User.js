@@ -1,26 +1,20 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-// User Schema
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    team: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pokemon'
-    }]
+    team: [{ type: Object }]  // Store full Pokémon data (Object) instead of just PokeAPI IDs (String)
 });
 
-// Disable password hashing middleware
+// Pre-save middleware to hash the password before saving
 userSchema.pre('save', async function(next) {
-    console.log("Pre-save middleware is disabled");
-    next(); // Proceed without hashing
+    if (this.isModified('password')) {
+        const salt = await bcrypt.genSalt(10);
+        this.password = await bcrypt.hash(this.password, salt);
+    }
+    next();
 });
-
-// Check if the provided password matches
-userSchema.methods.matchPassword = async function(enteredPassword) {
-    return enteredPassword === this.password; // Direct comparison without hashing
-};
 
 const User = mongoose.model('User', userSchema);
 
