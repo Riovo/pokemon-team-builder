@@ -4,7 +4,20 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    team: [{ type: Object }]  // Store full Pokémon data (Object) instead of just PokeAPI IDs (String)
+    teams: [
+        {
+            name: { type: String, required: true }, // Team name
+            members: [
+                {
+                    id: { type: Number, required: true },
+                    name: { type: String, required: true },
+                    types: { type: [String], required: true },
+                    image: { type: String, required: true },
+                    stats: { type: Object, required: true }, // Store all stats as an object
+                },
+            ],
+        },
+    ],
 });
 
 // Pre-save middleware to hash the password before saving

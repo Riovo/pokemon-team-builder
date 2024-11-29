@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/CreateTeamPage.css";
-import { useNavigate } from "react-router-dom";
 
 const CreateTeamPage = () => {
     const [pokemonList, setPokemonList] = useState([]);
@@ -14,17 +13,19 @@ const CreateTeamPage = () => {
     const [types, setTypes] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         axios.get("https://pokeapi.co/api/v2/pokemon?limit=200").then((res) => {
             const pokemonData = res.data.results;
             const fetchDetails = pokemonData.map((pokemon) =>
                 axios.get(pokemon.url).then((response) => ({
+                    id: response.data.id,
                     name: pokemon.name,
                     types: response.data.types,
                     image: response.data.sprites.other["official-artwork"].front_default,
-                    id: response.data.id,
+                    stats: response.data.stats.reduce((acc, stat) => {
+                        acc[stat.stat.name] = stat.base_stat;
+                        return acc;
+                    }, {}),
                 }))
             );
             Promise.all(fetchDetails).then((results) => {
@@ -53,12 +54,13 @@ const CreateTeamPage = () => {
             return;
         }
 
-        const teamData = team.map((pokemon) => pokemon.name);
-
-        const newTeam = { name: teamName, members: teamData };
-        const updatedTeams = [...savedTeams, newTeam];
-        setSavedTeams(updatedTeams);
-        localStorage.setItem("savedTeams", JSON.stringify(updatedTeams));
+        const teamData = team.map((pokemon) => ({
+            id: pokemon.id,
+            name: pokemon.name,
+            types: pokemon.types.map((t) => t.type.name),
+            image: pokemon.image,
+            stats: pokemon.stats,
+        }));
 
         const token = localStorage.getItem("token");
 
@@ -70,7 +72,7 @@ const CreateTeamPage = () => {
         axios
             .post(
                 "http://localhost:5000/api/team/add",
-                { team: teamData },
+                { name: teamName, members: teamData },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -79,14 +81,13 @@ const CreateTeamPage = () => {
             )
             .then(() => {
                 alert("Team saved!");
+                setTeam([]);
+                setTeamName("");
             })
             .catch((error) => {
                 console.error("Error saving team: ", error);
                 alert("There was an error saving your team.");
             });
-
-        setTeam([]);
-        setTeamName("");
     };
 
     const filteredPokemon = pokemonList.filter((pokemon) => {
@@ -118,12 +119,6 @@ const CreateTeamPage = () => {
                 />
                 <button onClick={handleSaveTeam} className="save-team-button">
                     Save Team
-                </button>
-                <button
-                    onClick={() => navigate("/teams")}
-                    className="view-teams-button"
-                >
-                    View Saved Teams
                 </button>
             </div>
 

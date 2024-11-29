@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Navbar.css";
+
 
 const Navbar = ({ isLoggedIn, onLogout, darkMode, toggleTheme }) => {
     return (
@@ -13,8 +15,9 @@ const Navbar = ({ isLoggedIn, onLogout, darkMode, toggleTheme }) => {
                     <>
                         <Link to="/create-team">Create Team</Link>
                         <Link to="/teams">View Saved Teams</Link>
-                        <Link to="/battle">Battle Page</Link>
-                        <button className="logout-button" onClick={onLogout}>Logout</button>
+                        <button className="logout-button" onClick={onLogout}>
+                            Logout
+                        </button>
                     </>
                 ) : (
                     <>
