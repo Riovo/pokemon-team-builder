@@ -1,0 +1,10 @@
+Add better commenting / more in depth, 
+add minigames, 
+Add better site security instead of localstorage change to cookies, 
+Use CSS media queries to improve the layout for mobile devices,
+Add hamburger menu,
+Add a search bar for team names,
+Show loading spinners or progress bars when fetching data during API calls (Optional),
+Show confirmations for actions like "Delete Team.",
+Finish README.md.
+
