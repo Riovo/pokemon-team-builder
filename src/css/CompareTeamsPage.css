@@ -1,202 +1,262 @@
 /* General Styles for Body */
 body {
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for background and text color */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body.light {
     background-color: #f7f7f7; /* Light background */
-    color: #333; /* Dark text for light theme */
+    color: #333; /* Black text for light mode */
 }
 
 body.dark {
     background-color: #2c2c2c; /* Dark background */
-    color: #f7f7f7; /* Light text for dark theme */
+    color: #f7f7f7; /* White text for dark mode */
 }
 
-/* Specific styles for CompareTeamsPage */
-.compare-teams-page {
-    text-align: center;
-    padding: 30px;
-    animation: fadeIn 1s ease-in-out;
-    transition: background-color 0.5s, color 0.5s; /* Smooth transition */
-}
-
-.compare-teams-page.light {
-    background-color: #f7f7f7; /* Light background */
-    color: #333; /* Dark text */
-}
-
-.compare-teams-page.dark {
-    background-color: #333; /* Dark background */
-    color: #f7f7f7; /* Light text */
-}
-
-/* Title Styling */
-.title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin: 20px 0;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    transition: color 0.3s ease;
-}
-
-.compare-teams-page h2,
-.compare-teams-page h3 {
-    color: inherit; /* Inherit color from the parent container */
-    transition: color 0.3s ease;
-}
-
-/* Team Selection Dropdowns */
-.compare-teams-page .team-selection {
-    margin: 20px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* Teams Facing Container */
+.teams-facing-container {
+    display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 50px;
     gap: 30px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.compare-teams-page .team-selection h2 {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-/* Team selection dropdown */
-.compare-teams-page .team-selection select {
-    padding: 10px;
-    font-size: 16px;
-    width: 250px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease, color 0.3s ease;
-}
-
-.compare-teams-page .team-selection select:hover {
-    transform: scale(1.05);
-}
-
-/* Stats Comparison */
-.compare-teams-page .stats-comparison {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    animation: slideIn 1s ease-out;
-    flex-wrap: wrap;
-}
-
-.compare-teams-page .team-stats {
-    width: 100%;
     padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    margin-bottom: 40px;
+}
+
+/* Individual team sections */
+.team1-section, .team2-section {
+    flex: 1;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    text-align: center;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.compare-teams-page .team-stats.dark {
-    background-color: #444;
-    color: #fff;
+/* Winning team styling */
+.team-win {
+    background-color: #2c2c2c; /* Default background for winners */
+    color: #f7f7f7;
 }
 
-/* Pokemon stats box styling */
-.compare-teams-page .pokemon-stats {
+/* Losing team styling */
+.team-lose {
+    background-color: #ff4444; /* Red background for losers */
+    color: white;
+}
+
+/* Light mode adjustments */
+body.light .team-win {
+    background-color: #f7f7f7;
+    color: black;
+}
+
+body.light .team-lose {
+    background-color: #ffcccc;
+    color: black;
+}
+
+/* Team section headers */
+.team1-section h3, .team2-section h3 {
     margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
+    font-size: 2rem;
+    text-transform: uppercase;
 }
 
-.compare-teams-page .pokemon-stats img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 15px;
-    border-radius: 50%;
-    object-fit: cover;
+.team1-section p, .team2-section p {
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Pokémon graphics container */
+.team-graphics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* Pokémon stats card */
+.pokemon-stats {
+    width: 200px;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: #f7f7f7;
+    text-align: center;
     transition: transform 0.3s ease;
 }
 
-.compare-teams-page .pokemon-stats img:hover {
-    transform: scale(1.1);
+/* Hover effect for Pokémon cards */
+.pokemon-stats:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
-.compare-teams-page .pokemon-stats h4 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+/* Pokémon image styling */
+.pokemon-stats img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    background-color: #444;
+    object-fit: cover;
+}
+
+/* Pokémon name styling */
+.pokemon-stats h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
     color: #007bff;
-    text-transform: capitalize;
+    text-transform: uppercase;
 }
 
-/* Responsive design for tablets and mobile */
+/* Pokémon stat list */
+.pokemon-stats ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+/* Pokémon stat item */
+.pokemon-stats ul li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Highlight specific stats */
+.pokemon-stats ul li span {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .compare-teams-page .stats-comparison {
+    .teams-facing-container {
         flex-direction: column;
         gap: 20px;
     }
 
-    .compare-teams-page .team-stats {
-        padding: 20px;
+    .pokemon-stats {
+        width: 180px;
     }
 
-    .compare-teams-page .pokemon-stats img {
-        width: 80px;
-        height: 80px;
+    .pokemon-stats img {
+        width: 100px;
+        height: 100px;
     }
 
-    .compare-teams-page h2 {
-        font-size: 1.5rem;
-    }
-
-    .compare-teams-page .team-selection select {
-        width: 200px;
+    .pokemon-stats h4 {
+        font-size: 1.1rem;
     }
 }
+/* Adjust Team Styling */
+.team1-section, .team2-section {
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-/* Responsive design for smaller mobile devices */
-@media (max-width: 480px) {
-    .compare-teams-page {
-        padding: 15px;
+/* Winner and Loser Styling */
+.team-win {
+    background-color: #f7f7f7; /* White for winners */
+    color: black;
+}
+
+.team-lose {
+    background-color: #ffe6e6; /* Light red for losers */
+    color: black;
+}
+
+/* Pokémon Stats Cards */
+.pokemon-stats {
+    width: 220px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect */
+.pokemon-stats:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Pokémon Image */
+.pokemon-stats img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+
+/* Pokémon Name */
+.pokemon-stats h4 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Pokémon Stats */
+.pokemon-stats ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+/* Stat Styling */
+.pokemon-stats ul li {
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: normal;
+}
+
+.pokemon-stats ul li span {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+/* Light Mode Adjustments */
+body.light .team-win {
+    background-color: #f7f7f7;
+    color: black;
+}
+
+body.light .team-lose {
+    background-color: #ffcccc;
+    color: black;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .teams-facing-container {
+        flex-direction: column;
+        gap: 20px;
     }
 
-    .compare-teams-page h2 {
-        font-size: 1.2rem;
+    .pokemon-stats {
+        width: 180px;
     }
 
-    .compare-teams-page .stats-comparison {
-        gap: 10px;
-    }
-
-    .compare-teams-page .pokemon-stats {
-        padding: 10px;
-    }
-
-    .compare-teams-page .pokemon-stats img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .compare-teams-page .team-selection select {
-        width: 150px;
-        font-size: 14px;
-    }
-
-    .compare-teams-page .team-stats {
-        padding: 15px;
+    .pokemon-stats img {
+        width: 90px;
+        height: 90px;
     }
 }
