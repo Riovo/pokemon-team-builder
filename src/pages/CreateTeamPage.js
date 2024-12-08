@@ -6,7 +6,6 @@ const CreateTeamPage = () => {
     const [pokemonList, setPokemonList] = useState([]);
     const [team, setTeam] = useState([]);
     const [teamName, setTeamName] = useState("");
-    const [savedTeams, setSavedTeams] = useState(JSON.parse(localStorage.getItem("savedTeams")) || []);
     const [teamLimit, setTeamLimit] = useState(6);
     const [search, setSearch] = useState("");
     const [filterType, setFilterType] = useState("");

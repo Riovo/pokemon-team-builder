@@ -14,32 +14,37 @@ const BattlePage = () => {
 
     useEffect(() => {
         if (savedTeams.length > 0) {
-            setPlayer1Team(savedTeams[0].members); // Assuming first team is selected for Player 1
-            setPlayer2Team(savedTeams[1]?.members || []); // Assuming second team is selected for Player 2
+            setPlayer1Team(savedTeams[0].members || []); // Ensure the first team is selected for Player 1
+            setPlayer2Team(savedTeams[1]?.members || []); // Ensure the second team is selected for Player 2 (if available)
         }
     }, [savedTeams]);
 
     const handleStartBattle = () => {
-        setSelectedPlayer1Pokemon(player1Team[0]);
-        setSelectedPlayer2Pokemon(player2Team[0]);
-        setBattleInProgress(true);
-        setBattleLog([
-            ...battleLog,
-            `Battle started: ${player1Team[0].name} vs ${player2Team[0].name}`,
-        ]);
+        if (player1Team.length > 0 && player2Team.length > 0) {
+            setSelectedPlayer1Pokemon(player1Team[0]);
+            setSelectedPlayer2Pokemon(player2Team[0]);
+            setBattleInProgress(true);
+            setBattleLog([
+                `Battle started: ${player1Team[0]?.name || "Pokemon 1"} vs ${player2Team[0]?.name || "Pokemon 2"}`,
+            ]);
+        } else {
+            alert("Both teams need to have Pokémon selected!");
+        }
     };
 
     const handleAttack = (attacker, defender) => {
         const damage = calculateDamage(attacker, defender);
         defender.hp -= damage;
+
         setBattleLog([
             ...battleLog,
-            `${attacker.name} used ${attacker.moves[0].name} and dealt ${damage} damage to ${defender.name}`,
+            `${attacker?.name} used ${attacker?.moves[0]?.name || "an attack"} and dealt ${damage} damage to ${defender?.name}`,
         ]);
+
         if (defender.hp <= 0) {
             setBattleLog([
                 ...battleLog,
-                `${defender.name} has fainted! ${attacker.name} wins!`,
+                `${defender?.name} has fainted! ${attacker?.name} wins!`,
             ]);
             setBattleInProgress(false);
         } else {
@@ -60,14 +65,14 @@ const BattlePage = () => {
                 <div className="player">
                     <h2>Player 1</h2>
                     {player1Team.map((pokemon) => (
-                        <div key={pokemon.name}>
-                            <img src={pokemon.image} alt={pokemon.name} />
-                            <h3>{pokemon.name}</h3>
-                            <p>Health: {pokemon.hp}</p>
-                            <p>Abilities: {pokemon.abilities?.map((ability) => ability.name).join(", ")}</p>
+                        <div key={pokemon?.id}>
+                            <img src={pokemon?.image} alt={pokemon?.name} />
+                            <h3>{pokemon?.name || "Unknown"}</h3>
+                            <p>Health: {pokemon?.stats?.find(stat => stat.name === 'hp')?.value || 0}</p>
+                            <p>Abilities: {pokemon?.abilities?.join(", ") || "N/A"}</p>
                             {selectedPlayer1Pokemon === null && (
                                 <button onClick={() => setSelectedPlayer1Pokemon(pokemon)}>
-                                    Select {pokemon.name}
+                                    Select {pokemon?.name || "Pokemon"}
                                 </button>
                             )}
                         </div>
@@ -76,14 +81,14 @@ const BattlePage = () => {
                 <div className="player">
                     <h2>Player 2</h2>
                     {player2Team.map((pokemon) => (
-                        <div key={pokemon.name}>
-                            <img src={pokemon.image} alt={pokemon.name} />
-                            <h3>{pokemon.name}</h3>
-                            <p>Health: {pokemon.hp}</p>
-                            <p>Abilities: {pokemon.abilities?.map((ability) => ability.name).join(", ")}</p>
+                        <div key={pokemon?.id}>
+                            <img src={pokemon?.image} alt={pokemon?.name} />
+                            <h3>{pokemon?.name || "Unknown"}</h3>
+                            <p>Health: {pokemon?.stats?.find(stat => stat.name === 'hp')?.value || 0}</p>
+                            <p>Abilities: {pokemon?.abilities?.join(", ") || "N/A"}</p>
                             {selectedPlayer2Pokemon === null && (
                                 <button onClick={() => setSelectedPlayer2Pokemon(pokemon)}>
-                                    Select {pokemon.name}
+                                    Select {pokemon?.name || "Pokemon"}
                                 </button>
                             )}
                         </div>
@@ -103,15 +108,15 @@ const BattlePage = () => {
                         {turn === "player1" && selectedPlayer1Pokemon && (
                             <div>
                                 <h4>Player 1's Turn</h4>
-                                <p>{selectedPlayer1Pokemon.name} is ready to attack!</p>
-                                {selectedPlayer1Pokemon.moves?.map((move) => (
+                                <p>{selectedPlayer1Pokemon?.name} is ready to attack!</p>
+                                {selectedPlayer1Pokemon?.moves?.map((move) => (
                                     <button
-                                        key={move.name}
+                                        key={move?.name}
                                         onClick={() =>
                                             handleAttack(selectedPlayer1Pokemon, selectedPlayer2Pokemon)
                                         }
                                     >
-                                        {move.name}
+                                        {move?.name || "Attack"}
                                     </button>
                                 ))}
                             </div>
@@ -120,15 +125,15 @@ const BattlePage = () => {
                         {turn === "player2" && selectedPlayer2Pokemon && (
                             <div>
                                 <h4>Player 2's Turn</h4>
-                                <p>{selectedPlayer2Pokemon.name} is ready to attack!</p>
-                                {selectedPlayer2Pokemon.moves?.map((move) => (
+                                <p>{selectedPlayer2Pokemon?.name} is ready to attack!</p>
+                                {selectedPlayer2Pokemon?.moves?.map((move) => (
                                     <button
-                                        key={move.name}
+                                        key={move?.name}
                                         onClick={() =>
                                             handleAttack(selectedPlayer2Pokemon, selectedPlayer1Pokemon)
                                         }
                                     >
-                                        {move.name}
+                                        {move?.name || "Attack"}
                                     </button>
                                 ))}
                             </div>

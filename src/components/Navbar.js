@@ -15,6 +15,7 @@ const Navbar = ({ isLoggedIn, onLogout, darkMode, toggleTheme }) => {
                     <>
                         <Link to="/create-team">Create Team</Link>
                         <Link to="/teams">View Saved Teams</Link>
+                        <Link to="/battle">Battle Page</Link>
                         <button className="logout-button" onClick={onLogout}>
                             Logout
                         </button>

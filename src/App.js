@@ -7,8 +7,9 @@ import RegisterPage from "./pages/RegisterPage";
 import CreateTeamPage from "./pages/CreateTeamPage";
 import PokemonDetails from "./pages/PokemonDetails";
 import TeamsPage from "./pages/TeamsPage";
-import axios from 'axios';
 import BattlePage from "./pages/BattlePage";
+import axios from 'axios';
+import ProtectedRoute from './components/ProtectedRoute';  // Import the ProtectedRoute component
 
 // Check if the token exists in localStorage and set it in Axios default headers
 const token = localStorage.getItem('token');
@@ -49,15 +50,39 @@ const App = () => {
                 toggleTheme={() => setDarkMode(!darkMode)}
             />
             <div className="content">
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/register" element={<RegisterPage />} />
-                <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
-                {isLoggedIn && <Route path="/create-team" element={<CreateTeamPage />} />}
-                {isLoggedIn && <Route path="/teams" element={<TeamsPage />} />}
-                {isLoggedIn && <Route path="/battle" element={<BattlePage />} />}
-                <Route path="/pokemon/:id" element={<PokemonDetails />} />
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+                    
+                    {/* Protected routes */}
+                    <Route 
+                        path="/create-team" 
+                        element={
+                            <ProtectedRoute>
+                                <CreateTeamPage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/teams" 
+                        element={
+                            <ProtectedRoute>
+                                <TeamsPage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    <Route 
+                        path="/battle" 
+                        element={
+                            <ProtectedRoute>
+                                <BattlePage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    
+                    <Route path="/pokemon/:id" element={<PokemonDetails />} />
+                </Routes>
             </div>
         </Router>
     );
