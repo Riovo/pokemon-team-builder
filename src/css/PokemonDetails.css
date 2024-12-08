@@ -1,35 +1,36 @@
-/* Main Container */
+/* Main Container Styling */
 .pokemon-details {
     max-width: 800px;
     margin: 40px auto;
     padding: 20px;
     border-radius: 15px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Soft shadow */
     text-align: center;
     font-family: 'Arial', sans-serif;
-    animation: fadeIn 0.5s ease-in-out;
-    background: rgba(255, 255, 255, 0.9); /* Slightly opaque for readability */
-    color: #333;
+    animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+    background: rgba(255, 255, 255, 0.9); /* Slight opacity for readability */
+    color: #333; /* Dark text */
 }
 
-/* Circle Around Pokémon */
+/* Pokémon Image Styling */
 .pokemon-details img {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
-    background: #f2f2f2; /* Light gray background for circle */
+    border-radius: 50%; /* Circular image */
+    background: #f2f2f2; /* Light gray background */
     padding: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    border: 5px solid #007bff; /* Blue stroke around the circle */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow around image */
+    border: 5px solid #007bff; /* Blue border */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Pokémon Image Hover Effect */
 .pokemon-details img:hover {
-    transform: scale(1.1); /* Slight zoom on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    transform: scale(1.1); /* Slight zoom */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
 }
 
-/* Evolution Chain */
+/* Evolution Chain Styling */
 .evolution-chain {
     list-style: none;
     padding: 0;
@@ -39,29 +40,32 @@
     gap: 20px;
 }
 
+/* Evolution Chain Item */
 .evolution-chain li {
     text-align: center;
-    cursor: pointer;
+    cursor: pointer; /* Pointer on hover */
 }
 
+/* Evolution Chain Image Styling */
 .evolution-chain img {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 50%; /* Circular image */
     background: #f7f7f7;
     padding: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    border: 3px solid #007bff; /* Blue border for evolution images */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow around image */
+    border: 3px solid #007bff; /* Blue border */
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
+/* Evolution Image Hover Effect */
 .evolution-chain img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /* Slight zoom */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     border-color: #ffd700; /* Gold border on hover */
 }
 
+/* Evolution Text Styling */
 .evolution-chain span {
     display: block;
     margin-top: 5px;
@@ -70,50 +74,52 @@
     font-weight: bold;
 }
 
-/* Base Stats */
+/* Base Stats Section Styling */
 .stats {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Responsive grid */
     gap: 15px;
     list-style: none;
     padding: 0;
     margin: 20px 0;
 }
 
+/* Stat List Item Styling */
 .stats li {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); /* Light background */
     padding: 10px;
     border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
     color: #333;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
     text-align: center;
-    cursor: pointer; /* Changes cursor to pointer */
+    cursor: pointer; /* Pointer on hover */
     transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Stat List Item Hover Effect */
 .stats li:hover {
-    background: #007bff; /* Blue highlight on hover */
-    color: white; /* Change text color for contrast */
-    transform: scale(1.05); /* Slight zoom effect */
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+    background: #007bff; /* Blue background on hover */
+    color: white; /* White text on hover */
+    transform: scale(1.05); /* Zoom effect */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
 }
 
-/* Adjust Dark Theme */
+/* Dark Mode Adjustments for Stats */
 body.dark .pokemon-details {
-    background: rgba(50, 50, 50, 0.9);
-    color: #f1f1f1;
+    background: rgba(50, 50, 50, 0.9); /* Dark background for dark mode */
+    color: #f1f1f1; /* Light text */
 }
 
 body.dark .stats li {
     background: rgba(60, 60, 60, 0.8);
-    color: #e1e1e1;
+    color: #e1e1e1; /* Lighter text */
 }
 
 body.dark .stats li:hover {
     background: #555; /* Slightly lighter for hover in dark mode */
-    color: #ffd700; /* Gold text on hover in dark mode */
+    color: #ffd700; /* Gold text on hover */
 }
 
 /* Animations */

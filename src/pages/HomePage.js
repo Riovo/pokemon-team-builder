@@ -4,14 +4,14 @@ import axios from "axios";
 import "../css/HomePage.css";
 
 const HomePage = () => {
-    const [pokemon, setPokemon] = useState([]);
-    const [filteredPokemon, setFilteredPokemon] = useState([]);
-    const [search, setSearch] = useState("");
-    const [filterType, setFilterType] = useState("");
-    const [availableTypes, setAvailableTypes] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage] = useState(20);
-    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+    const [pokemon, setPokemon] = useState([]); // List of all available Pokémon
+    const [filteredPokemon, setFilteredPokemon] = useState([]); // Filtered Pokémon based on search and type
+    const [search, setSearch] = useState(""); // Search input for Pokémon names
+    const [filterType, setFilterType] = useState(""); // Selected Pokémon type filter
+    const [availableTypes, setAvailableTypes] = useState([]); // List of available Pokémon types
+    const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
+    const [itemsPerPage] = useState(20); // Number of items per page for pagination
+    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark"); // Dark mode toggle state
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,44 +21,44 @@ const HomePage = () => {
                 axios.get(p.url).then((res) => res.data)
             );
             Promise.all(details).then((data) => {
-                setPokemon(data);
-                setFilteredPokemon(data);
+                setPokemon(data); // Set all Pokémon data
+                setFilteredPokemon(data); // Set filtered Pokémon initially
             });
         });
 
-        // Fetch types
+        // Fetch types of Pokémon
         axios.get("https://pokeapi.co/api/v2/type").then((response) => {
             const types = response.data.results.map((type) => type.name);
-            setAvailableTypes(types);
+            setAvailableTypes(types); // Set available Pokémon types
         });
     }, []);
 
     useEffect(() => {
-        document.body.className = darkMode ? "dark" : "light";
-        localStorage.setItem("theme", darkMode ? "dark" : "light");
+        document.body.className = darkMode ? "dark" : "light"; // Apply dark mode or light mode based on the state
+        localStorage.setItem("theme", darkMode ? "dark" : "light"); // Save the theme to localStorage
     }, [darkMode]);
 
     useEffect(() => {
+        // Filter Pokémon based on search query and type filter
         const filtered = pokemon.filter((p) => {
-            const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
+            const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase()); // Filter by name
             const matchesType =
-                !filterType || p.types.some((t) => t.type.name === filterType.toLowerCase());
-
+                !filterType || p.types.some((t) => t.type.name === filterType.toLowerCase()); // Filter by type
             return matchesSearch && matchesType;
         });
-        setFilteredPokemon(filtered);
+        setFilteredPokemon(filtered); // Set filtered Pokémon
         setCurrentPage(1); // Reset to page 1 after filtering
     }, [search, filterType, pokemon]);
 
     const handleNextPage = () => {
         if (currentPage * itemsPerPage < filteredPokemon.length) {
-            setCurrentPage(currentPage + 1);
+            setCurrentPage(currentPage + 1); // Go to next page
         }
     };
 
     const handlePrevPage = () => {
         if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage(currentPage - 1); // Go to previous page
         }
     };
 
@@ -69,8 +69,8 @@ const HomePage = () => {
 
     // Function to reset filters
     const resetFilters = () => {
-        setSearch("");
-        setFilterType("");
+        setSearch(""); // Reset search field
+        setFilterType(""); // Reset type filter
     };
 
     return (
@@ -81,7 +81,7 @@ const HomePage = () => {
                     type="text"
                     placeholder="Search by name"
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => setSearch(e.target.value)} // Handle search input change
                 />
                 <select onChange={(e) => setFilterType(e.target.value)} value={filterType}>
                     <option value="">All Types</option>
@@ -101,11 +101,11 @@ const HomePage = () => {
                     <div
                         key={p.id}
                         className="pokemon-card"
-                        onClick={() => navigate(`/pokemon/${p.id}`)} // Navigate to details page
+                        onClick={() => navigate(`/pokemon/${p.id}`)} // Navigate to details page on click
                         role="button"
                         tabIndex={0} // Make div accessible for keyboard navigation
                         onKeyPress={(e) => {
-                            if (e.key === "Enter") navigate(`/pokemon/${p.id}`);
+                            if (e.key === "Enter") navigate(`/pokemon/${p.id}`); // Navigate when Enter key is pressed
                         }}
                     >
                         <img src={p.sprites.front_default} alt={p.name} />
@@ -120,6 +120,7 @@ const HomePage = () => {
                     </div>
                 ))}
             </div>
+            {/* Pagination */}
             <div className="pagination">
                 <button onClick={handlePrevPage} disabled={currentPage === 1}>
                     Previous
@@ -138,4 +139,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default HomePage; // Export the HomePage component

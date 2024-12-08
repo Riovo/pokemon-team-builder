@@ -3,15 +3,13 @@ import axios from "axios";
 import "../css/CompareTeamsPage.css";
 
 const CompareTeamsPage = () => {
-    // State variables to store teams, selected teams, loading state, images, and dark mode preference
     const [teams, setTeams] = useState([]); // List of saved teams
     const [selectedTeam1, setSelectedTeam1] = useState(null); // Selected team 1
     const [selectedTeam2, setSelectedTeam2] = useState(null); // Selected team 2
-    const [loading, setLoading] = useState(true); // Loading state for fetching data
-    const [pokemonImages, setPokemonImages] = useState({}); // Store fetched Pokémon images
+    const [loading, setLoading] = useState(true); // Loading state
+    const [pokemonImages, setPokemonImages] = useState({}); // Store fetched images
     const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark"); // Dark mode state
 
-    // Fetch saved teams from the backend
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -20,57 +18,51 @@ const CompareTeamsPage = () => {
             return;
         }
 
-        // Fetch the saved teams from the backend API
+        // Fetch the saved teams
         axios
             .get("http://localhost:5000/api/team/saved-teams", {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
-                setTeams(response.data.teams || []); // Set teams data to state
-                setLoading(false); // Set loading to false once data is fetched
+                setTeams(response.data.teams || []);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching teams: ", error);
                 alert("There was an error fetching your teams.");
-                setLoading(false); // Set loading to false if there's an error
+                setLoading(false);
             });
-    }, []); // Empty dependency array, runs only once after the component mounts
+    }, []);
 
-    // Apply dark or light mode based on the state and save it in localStorage
     useEffect(() => {
-        document.body.className = darkMode ? "dark" : "light"; // Apply dark/light mode to body element
-        localStorage.setItem("theme", darkMode ? "dark" : "light"); // Save the theme in localStorage
-    }, [darkMode]); // Runs whenever darkMode state changes
+        document.body.className = darkMode ? "dark" : "light"; // Apply dark mode or light mode based on the state
+        localStorage.setItem("theme", darkMode ? "dark" : "light"); // Save the theme to localStorage
+    }, [darkMode]);
 
-    // Handle the team selection for Team 1
     const handleTeam1Select = (team) => {
-        setSelectedTeam1(team); // Set selected team 1
+        setSelectedTeam1(team);
     };
 
-    // Handle the team selection for Team 2
     const handleTeam2Select = (team) => {
-        setSelectedTeam2(team); // Set selected team 2
+        setSelectedTeam2(team);
     };
 
-    // Fetch Pokémon image from the PokeAPI based on Pokémon name
     const fetchPokemonImage = (pokemonName) => {
         return axios
             .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then((response) => {
-                return response.data.sprites.front_default; // Return the front sprite image URL
+                return response.data.sprites.front_default;
             })
             .catch((error) => {
                 console.error("Error fetching Pokémon image: ", error);
-                return "https://via.placeholder.com/100"; // Return a placeholder image if error occurs
+                return "https://via.placeholder.com/100"; // Return a placeholder image if there's an error
             });
     };
 
-    // Fetch images for all selected Pokémon in both teams
     useEffect(() => {
         const loadImages = async () => {
             const images = {};
             if (selectedTeam1) {
-                // Fetch images for team 1
                 await Promise.all(
                     selectedTeam1.members.map(async (pokemon) => {
                         const image = await fetchPokemonImage(pokemon.name);
@@ -80,7 +72,6 @@ const CompareTeamsPage = () => {
             }
 
             if (selectedTeam2) {
-                // Fetch images for team 2
                 await Promise.all(
                     selectedTeam2.members.map(async (pokemon) => {
                         const image = await fetchPokemonImage(pokemon.name);
@@ -89,13 +80,12 @@ const CompareTeamsPage = () => {
                 );
             }
 
-            setPokemonImages(images); // Set the fetched images in the state
+            setPokemonImages(images);
         };
 
-        loadImages(); // Call the loadImages function when the selected teams change
-    }, [selectedTeam1, selectedTeam2]); // Runs when selectedTeam1 or selectedTeam2 changes
+        loadImages();
+    }, [selectedTeam1, selectedTeam2]);
 
-    // If the teams are still being fetched, show loading message
     if (loading) {
         return <p>Loading teams...</p>;
     }

@@ -4,9 +4,9 @@ import axios from 'axios';
 import '../css/AuthPage.css';
 
 const LoginPage = ({ onLogin }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [email, setEmail] = useState(''); // Store email input
+    const [password, setPassword] = useState(''); // Store password input
+    const [error, setError] = useState(null); // Store error message
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -27,7 +27,6 @@ const LoginPage = ({ onLogin }) => {
             // Set login state in parent component
             onLogin();
             navigate('/');  // Redirect to home page or dashboard
-            
         } catch (error) {
             // Debugging 
             console.log('Login Error:', error);
@@ -38,7 +37,6 @@ const LoginPage = ({ onLogin }) => {
                 setError('Network error. Please try again later.');
             }
         }
-
     };
 
     return (
@@ -49,24 +47,24 @@ const LoginPage = ({ onLogin }) => {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)} // Handle email change
                     required
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)} // Handle password change
                     required
                 />
-                {error && <p className="error-message">{error}</p>}
+                {error && <p className="error-message">{error}</p>} {/* Display error if exists */}
                 <button type="submit">Login</button>
             </form>
             <p>
-                Don't have an account? <a href="/register">Register here</a>
+                Don't have an account? <a href="/register">Register here</a> {/* Link to Register page */}
             </p>
         </div>
     );
 };
 
-export default LoginPage;
+export default LoginPage; // Export LoginPage component

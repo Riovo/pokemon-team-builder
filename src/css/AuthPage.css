@@ -1,22 +1,24 @@
-/* AuthPage.css */
+/* AuthPage Styling */
 .auth-page {
     width: 100%;
-    max-width: 400px; /* Ensure the box doesn't get too wide */
-    margin: 50px auto;
+    max-width: 400px; /* Limit the width of the auth page */
+    margin: 50px auto; /* Center the page */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+    background-color: #fff; /* White background */
     text-align: center;
     box-sizing: border-box; /* Ensure padding is included in width */
 }
 
+/* Header styling */
 .auth-page h2 {
     margin-bottom: 20px;
     font-size: 1.5rem;
-    color: #333;
+    color: #333; /* Dark color for the header */
 }
 
+/* Input field styling */
 .auth-page input {
     width: 100%;
     padding: 10px;
@@ -28,11 +30,13 @@
     box-sizing: border-box; /* Ensure padding is included in width */
 }
 
+/* Focus effect for input fields */
 .auth-page input:focus {
     border-color: #007bff;
     outline: none;
 }
 
+/* Button styling */
 .auth-page button {
     width: 100%;
     padding: 10px;
@@ -45,25 +49,29 @@
     transition: background-color 0.3s;
 }
 
+/* Button hover effect */
 .auth-page button:hover {
     background-color: #0056b3;
 }
 
+/* Paragraph styling */
 .auth-page p {
     margin-top: 10px;
     font-size: 1rem;
 }
 
+/* Link styling */
 .auth-page p a {
     color: #007bff;
     text-decoration: none;
 }
 
+/* Link hover effect */
 .auth-page p a:hover {
     text-decoration: underline;
 }
 
-/* Updated CSS for error messages */
+/* Error message styles */
 .error-message {
     color: red;
     font-size: 0.9rem;

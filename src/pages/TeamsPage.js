@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../css/TeamsPage.css";
 
+// Type effectiveness data for calculating team strengths and weaknesses
 const TYPE_EFFECTIVENESS = {
     normal: { weakTo: ["fighting"], strongAgainst: [] },
     fire: { weakTo: ["water", "rock", "ground"], strongAgainst: ["grass", "bug", "ice", "steel"] },
@@ -24,11 +25,12 @@ const TYPE_EFFECTIVENESS = {
 };
 
 const TeamsPage = () => {
-    const [teams, setTeams] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [teams, setTeams] = useState([]); // State for storing user's teams
+    const [loading, setLoading] = useState(true); // State to indicate if teams are being loaded
 
+    // Fetch saved teams from the backend
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // Get token from localStorage
 
         if (!token) {
             alert("You must be logged in to view your teams.");
@@ -40,18 +42,19 @@ const TeamsPage = () => {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
-                setTeams(response.data.teams || []);
-                setLoading(false);
+                setTeams(response.data.teams || []); // Set teams data
+                setLoading(false); // Set loading to false once data is fetched
             })
             .catch((error) => {
                 console.error("Error fetching teams: ", error);
                 alert("There was an error fetching your teams.");
-                setLoading(false);
+                setLoading(false); // Set loading to false even if there's an error
             });
     }, []);
 
+    // Function to delete a team
     const handleDeleteTeam = (teamName) => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // Get token from localStorage
 
         if (!token) {
             alert("You must be logged in to delete a team.");
@@ -65,7 +68,7 @@ const TeamsPage = () => {
                 })
                 .then((response) => {
                     alert("Team deleted successfully!");
-                    setTeams(response.data.teams || []);
+                    setTeams(response.data.teams || []); // Update teams after deletion
                 })
                 .catch((error) => {
                     console.error("Error deleting team: ", error);
@@ -75,7 +78,7 @@ const TeamsPage = () => {
     };
 
     if (loading) {
-        return <p>Loading teams...</p>;
+        return <p>Loading teams...</p>; // Show loading message while teams are being fetched
     }
 
     return (
@@ -86,15 +89,17 @@ const TeamsPage = () => {
                     <TeamCard key={index} team={team} handleDeleteTeam={handleDeleteTeam} />
                 ))
             ) : (
-                <p>No teams saved yet!</p>
+                <p>No teams saved yet!</p> // Show message if there are no saved teams
             )}
         </div>
     );
 };
 
+// Component to render a team's details and stats
 const TeamCard = ({ team, handleDeleteTeam }) => {
-    const [showInfo, setShowInfo] = useState(false);
+    const [showInfo, setShowInfo] = useState(false); // State to toggle showing more info
 
+    // Function to calculate team strengths and weaknesses based on types
     const calculateTypeSummary = (team) => {
         const weaknesses = {};
         const strengths = {};
@@ -119,7 +124,7 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
         return { weaknesses, strengths };
     };
 
-    const { weaknesses, strengths } = calculateTypeSummary(team.members || []);
+    const { weaknesses, strengths } = calculateTypeSummary(team.members || []); // Calculate weaknesses and strengths for the team
 
     return (
         <div className="team-card">
@@ -146,19 +151,19 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
                         </div>
                     ))
                 ) : (
-                    <p>No Pokémon found in this team!</p>
+                    <p>No Pokémon found in this team!</p> // Show message if there are no Pokémon in the team
                 )}
             </div>
 
             <button
                 className="delete-team-button"
-                onClick={() => handleDeleteTeam(team.name)}
+                onClick={() => handleDeleteTeam(team.name)} // Delete team when button is clicked
             >
                 Delete Team
             </button>
             <button
                 className="more-info-button"
-                onClick={() => setShowInfo((prev) => !prev)}
+                onClick={() => setShowInfo((prev) => !prev)} // Toggle visibility of team info
             >
                 {showInfo ? "Hide Info" : "More Info"}
             </button>
@@ -206,20 +211,20 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
 };
 
 const PokemonStats = ({ pokemonName }) => {
-    const [stats, setStats] = useState(null);
+    const [stats, setStats] = useState(null); // State to store Pokémon stats
 
     useEffect(() => {
         axios
             .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)
-            .then((response) => setStats(response.data.stats))
+            .then((response) => setStats(response.data.stats)) // Fetch and set stats
             .catch((error) => console.error("Error fetching Pokémon stats:", error));
     }, [pokemonName]);
 
     if (!stats) {
-        return <p>Loading stats for {pokemonName.toUpperCase()}...</p>;
+        return <p>Loading stats for {pokemonName.toUpperCase()}...</p>; // Show loading message if stats are not available
     }
 
-    // Map stat names to CSS class names
+    // Map stat names to CSS class names for styling
     const statNameToClass = {
         hp: "hp",
         attack: "attack",
@@ -239,7 +244,7 @@ const PokemonStats = ({ pokemonName }) => {
                         <div
                             className={`stat-bar ${statNameToClass[stat.stat.name]}`}
                             style={{
-                                width: `${(stat.base_stat / 255) * 100}%`,
+                                width: `${(stat.base_stat / 255) * 100}%`, // Set bar width based on stat value
                             }}
                         ></div>
                     </div>
@@ -250,4 +255,4 @@ const PokemonStats = ({ pokemonName }) => {
     );
 };
 
-export default TeamsPage;
+export default TeamsPage; // Export the TeamsPage component

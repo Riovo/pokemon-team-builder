@@ -4,16 +4,16 @@ import axios from "axios";
 import "../css/PokemonDetails.css";
 
 const PokemonDetails = () => {
-    const { id } = useParams();
+    const { id } = useParams(); // Get Pokémon ID from URL
     const navigate = useNavigate();
-    const [pokemon, setPokemon] = useState(null);
-    const [weaknesses, setWeaknesses] = useState([]);
-    const [evolutionChain, setEvolutionChain] = useState([]);
-    const [hatchTime, setHatchTime] = useState("");
-    const [loading, setLoading] = useState(true);
+    const [pokemon, setPokemon] = useState(null); // Pokémon details
+    const [weaknesses, setWeaknesses] = useState([]); // Pokémon type weaknesses
+    const [evolutionChain, setEvolutionChain] = useState([]); // Evolution chain for Pokémon
+    const [hatchTime, setHatchTime] = useState(""); // Hatch time for Pokémon
+    const [loading, setLoading] = useState(true); // Loading state
 
     useEffect(() => {
-        setLoading(true); // Ensure loading state is visible while fetching data
+        setLoading(true); // Show loading state while fetching data
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`).then((response) => {
             setPokemon(response.data);
 
@@ -26,22 +26,21 @@ const PokemonDetails = () => {
                 setWeaknesses([...new Set(allWeaknesses)]); // Remove duplicates
             });
 
-            // Fetch species data
+            // Fetch species data for hatch time
             axios.get(response.data.species.url).then((speciesResponse) => {
                 const eggCycles = speciesResponse.data.egg_groups.includes("Undiscovered")
                     ? "Cannot Hatch"
                     : speciesResponse.data.hatch_counter * 257;
                 setHatchTime(eggCycles);
 
+                // Fetch evolution chain
                 axios.get(speciesResponse.data.evolution_chain.url).then((evolutionResponse) => {
                     const chain = [];
                     let current = evolutionResponse.data.chain;
-
                     while (current) {
                         chain.push(current.species.name);
-                        current = current.evolves_to[0]; // Assumes linear evolution for simplicity
+                        current = current.evolves_to[0];
                     }
-
                     // Fetch sprites for each evolution stage
                     const evolutionPromises = chain.map((name) =>
                         axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then((res) => ({
@@ -57,6 +56,7 @@ const PokemonDetails = () => {
         });
     }, [id]);
 
+    // Function to generate gradient background based on Pokémon types
     const typeGradient = () => {
         if (!pokemon) return "";
         const colors = {
@@ -80,18 +80,15 @@ const PokemonDetails = () => {
             steel: "#B8B8D0",
         };
         const typeColors = pokemon.types.map((t) => colors[t.type.name]);
-        return `linear-gradient(135deg, ${typeColors.join(", ")})`;
+        return `linear-gradient(135deg, ${typeColors.join(", ")})`; // Gradient for Pokémon types
     };
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <div className="loading">Loading...</div>; // Display loading message while fetching data
     }
 
     return (
-        <div
-            className="pokemon-details"
-            style={{ background: typeGradient() }}
-        >
+        <div className="pokemon-details" style={{ background: typeGradient() }}>
             <h1>{pokemon.name.toUpperCase()}</h1>
             <div className="circle">
                 <img src={pokemon.sprites.front_default} alt={pokemon.name} />
@@ -123,4 +120,4 @@ const PokemonDetails = () => {
     );
 };
 
-export default PokemonDetails;
+export default PokemonDetails; // Export the PokemonDetails component

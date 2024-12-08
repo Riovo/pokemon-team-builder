@@ -1,257 +1,270 @@
-/* General Page Styling */
+/* General Page Styling for Create Team Page */
 .create-team-page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h1, h2 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    text-align: center;
-    color: #333;
-  }
-  
-  /* Team Section */
-  .team {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 900px;
-    background-color: #f8f9fa;
-    border: 2px solid #dee2e6;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .team p {
-    font-size: 1.2rem;
-    font-style: italic;
-    color: #888;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-  }
-  
-  /* Pokémon Container */
-  .pokemon-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    justify-items: center;
-  }
-  
-  /* Pokémon Cards */
-  .pokemon-card {
-    background-color: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 180px; /* Fixed width for uniformity */
-    height: 300px; /* Fixed height to ensure all cards match */
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Ensures proper spacing between elements */
-    box-sizing: border-box;
-  }
-  
-  .pokemon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  .pokemon-card img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    object-fit: contain; /* Ensures the image fits without distortion */
-  }
-  
-  .pokemon-card h3 {
-    font-size: 1.2rem;
-    color: #007bff;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    white-space: nowrap; /* Prevents text from wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Adds "..." if the name is too long */
-  }
-  
-  /* Type Badges */
-  .type-badges {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap; /* Allows badges to wrap within the card */
-    justify-content: center;
-    gap: 5px; /* Adds spacing between badges */
-  }
-  
-  .type-badge {
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 0.8rem;
-    color: white;
-    border-radius: 12px;
-    margin: 2px;
-    text-transform: capitalize;
-  }
-  
-  /* Colors for Type Badges */
-  .type-badge.fire { background-color: #f08030; }
-  .type-badge.water { background-color: #6890f0; }
-  .type-badge.grass { background-color: #78c850; }
-  .type-badge.electric { background-color: #f8d030; }
-  .type-badge.ice { background-color: #98d8d8; }
-  .type-badge.fighting { background-color: #c03028; }
-  .type-badge.poison { background-color: #a040a0; }
-  .type-badge.ground { background-color: #e0c068; }
-  .type-badge.flying { background-color: #a890f0; }
-  .type-badge.psychic { background-color: #f85888; }
-  .type-badge.bug { background-color: #a8b820; }
-  .type-badge.rock { background-color: #b8a038; }
-  .type-badge.ghost { background-color: #705898; }
-  .type-badge.dragon { background-color: #7038f8; }
-  .type-badge.dark { background-color: #705848; }
-  .type-badge.steel { background-color: #b8b8d0; }
-  .type-badge.fairy { background-color: #f0b6bc; }
-  .type-badge.normal { background-color: #a8a878; }
-  
-  /* Remove Button Styling */
-  .pokemon-card .remove-button {
-    margin-top: auto; /* Pushes the button to the bottom */
-    padding: 10px;
-    background-color: #dc3545; /* Red background */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2);
-  }
-  
-  .pokemon-card .remove-button:hover {
-    background-color: #c82333; /* Darker red on hover */
-    box-shadow: 0 6px 8px rgba(220, 53, 69, 0.3);
-  }
-  
-  .pokemon-card .remove-button:active {
-    background-color: #a71d2a; /* Even darker red on click */
-    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
-  }
-  
-  /* Team Settings */
-  .team-settings {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .team-settings label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .team-settings input[type="number"],
-  .team-settings input[type="text"] {
-    padding: 8px 12px;
-    font-size: 1rem;
-    border: 2px solid #007bff;
-    border-radius: 8px;
-    outline: none;
-    transition: all 0.3s ease;
-  }
-  
-  .team-settings input[type="number"]:focus,
-  .team-settings input[type="text"]:focus {
-    border-color: #0056b3;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
-  }
-  
-  .team-settings input[type="number"]:hover,
-  .team-settings input[type="text"]:hover {
-    background-color: #f8f9fa;
-  }
-  
-  /* Buttons in Team Settings */
-  .team-settings button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-  }
-  
-  /* Save Team Button */
-  .save-team-button {
-    background-color: #28a745;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 123, 32, 0.2);
-  }
-  
-  .save-team-button:hover {
-    background-color: #218838;
-    box-shadow: 0 6px 8px rgba(0, 123, 32, 0.3);
-  }
-  
-  .save-team-button:active {
-    background-color: #1e7e34;
-  }
-  
-  /* View Saved Teams Button */
-  .view-teams-button {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
-  }
-  
-  .view-teams-button:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
-  }
-  
-  .view-teams-button:active {
-    background-color: #004085;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .team, .pokemon-container {
+  max-width: 1200px; /* Restrict the maximum width of the page */
+  margin: 0 auto; /* Center the page horizontally */
+  padding: 20px;
+  text-align: center; /* Center the content */
+}
+
+/* Heading Styles */
+h1, h2 {
+  font-size: 2rem; /* Set font size for titles */
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-transform: uppercase; /* Uppercase titles */
+  color: #333; /* Dark color for the title text */
+}
+
+/* Team Section Container Styling */
+.team {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 900px; /* Restrict the maximum width of team section */
+  background-color: #f8f9fa; /* Light gray background for team section */
+  border: 2px solid #dee2e6; /* Light border color */
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  text-align: center;
+}
+
+/* Placeholder Text Styling */
+.team p {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #888; /* Light gray color for placeholder text */
+  display: flex;
+  justify-content: center; /* Center the text */
+  align-items: center;
+  height: 100px;
+}
+
+/* Pokémon Container Grid */
+.pokemon-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout with responsive columns */
+  gap: 20px;
+  justify-items: center; /* Center items in grid */
+}
+
+/* Pokémon Cards Styling */
+.pokemon-card {
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow to cards */
+  width: 180px; /* Fixed width to maintain card consistency */
+  height: 300px; /* Fixed height */
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add hover effect */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Align elements evenly within the card */
+}
+
+/* Hover effect on Pokémon cards */
+.pokemon-card:hover {
+  transform: translateY(-5px); /* Slight movement on hover */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+/* Pokémon Card Image Styling */
+.pokemon-card img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  object-fit: contain; /* Ensure image fits within the card without distortion */
+}
+
+/* Pokémon Card Name Styling */
+.pokemon-card h3 {
+  font-size: 1.2rem;
+  color: #007bff; /* Blue color for the name */
+  margin-bottom: 8px;
+  text-transform: uppercase; /* Uppercase the Pokémon name */
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add "..." if name overflows */
+}
+
+/* Type Badges Styling */
+.type-badges {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap; /* Allow badges to wrap in card */
+  justify-content: center;
+  gap: 5px; /* Spacing between badges */
+}
+
+/* Type Badge Styling */
+.type-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  color: white;
+  border-radius: 12px;
+  margin: 2px;
+  text-transform: capitalize; /* Capitalize type name */
+}
+
+/* Type Badge Colors */
+.type-badge.fire { background-color: #f08030; }
+.type-badge.water { background-color: #6890f0; }
+.type-badge.grass { background-color: #78c850; }
+.type-badge.electric { background-color: #f8d030; }
+.type-badge.ice { background-color: #98d8d8; }
+.type-badge.fighting { background-color: #c03028; }
+.type-badge.poison { background-color: #a040a0; }
+.type-badge.ground { background-color: #e0c068; }
+.type-badge.flying { background-color: #a890f0; }
+.type-badge.psychic { background-color: #f85888; }
+.type-badge.bug { background-color: #a8b820; }
+.type-badge.rock { background-color: #b8a038; }
+.type-badge.ghost { background-color: #705898; }
+.type-badge.dragon { background-color: #7038f8; }
+.type-badge.dark { background-color: #705848; }
+.type-badge.steel { background-color: #b8b8d0; }
+.type-badge.fairy { background-color: #f0b6bc; }
+.type-badge.normal { background-color: #a8a878; }
+
+/* Remove Button Styling */
+.pokemon-card .remove-button {
+  margin-top: auto;
+  padding: 10px;
+  background-color: #dc3545; /* Red background for delete */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(220, 53, 69, 0.2); /* Shadow for delete button */
+}
+
+/* Hover effect for Remove Button */
+.pokemon-card .remove-button:hover {
+  background-color: #c82333; /* Darker red */
+  box-shadow: 0 6px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* Active state for Remove Button */
+.pokemon-card .remove-button:active {
+  background-color: #a71d2a; /* Even darker red */
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
+}
+
+/* Team Settings Section */
+.team-settings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Label in Team Settings */
+.team-settings label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Inputs in Team Settings */
+.team-settings input[type="number"],
+.team-settings input[type="text"] {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Focus Effect for Inputs */
+.team-settings input[type="number"]:focus,
+.team-settings input[type="text"]:focus {
+  border-color: #0056b3;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
+/* Hover Effect for Inputs */
+.team-settings input[type="number"]:hover,
+.team-settings input[type="text"]:hover {
+  background-color: #f8f9fa;
+}
+
+/* Button Styles in Team Settings */
+.team-settings button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Save Team Button Styling */
+.save-team-button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 123, 32, 0.2);
+}
+
+/* Hover Effect for Save Team Button */
+.save-team-button:hover {
+  background-color: #218838;
+  box-shadow: 0 6px 8px rgba(0, 123, 32, 0.3);
+}
+
+/* Active State for Save Button */
+.save-team-button:active {
+  background-color: #1e7e34;
+}
+
+/* View Saved Teams Button Styling */
+.view-teams-button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+}
+
+/* Hover Effect for View Saved Teams Button */
+.view-teams-button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Active State for View Button */
+.view-teams-button:active {
+  background-color: #004085;
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+  .team, .pokemon-container {
       padding: 15px;
-    }
-  
-    .pokemon-card {
+  }
+
+  .pokemon-card {
       width: 150px;
       height: 250px;
-    }
-  
-    .pokemon-card img {
+  }
+
+  .pokemon-card img {
       width: 80px;
       height: 80px;
-    }
-  
-    .pokemon-card h3 {
+  }
+
+  .pokemon-card h3 {
       font-size: 1rem;
-    }
-  }  
+  }
+}

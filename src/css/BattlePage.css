@@ -1,58 +1,93 @@
+/* General Battle Page Styling */
 .battle-page {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .teams {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
-  
-  .player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .player img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .battle-field {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .pokemon {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .battle-log {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-}  
+  padding: 20px;
+  text-align: center; /* Center the content */
+}
+
+/* Teams Section Styling */
+.teams {
+  display: flex;
+  justify-content: space-around; /* Space out the teams evenly */
+  margin-bottom: 20px;
+}
+
+/* Player Styling */
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Player Image Styling */
+.player img {
+  width: 100px;
+  height: 100px;
+}
+
+/* Battle Field Styling */
+.battle-field {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Pokémon styling */
+.pokemon {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Pokémon div styling */
+.pokemon div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Pokémon button styling */
+.pokemon button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+/* Battle Log Styling */
+.battle-log {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  width: 50%;
+  margin: 20px auto;
+}
+
+/* List styling for battle log */
+.battle-log ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* List item styling */
+.battle-log li {
+  margin-bottom: 10px;
+}
+
+/* Button hover effect */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Title Styling */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  color: #333; /* Dark color for title */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

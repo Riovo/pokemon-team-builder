@@ -9,7 +9,8 @@ import PokemonDetails from "./pages/PokemonDetails";
 import TeamsPage from "./pages/TeamsPage";
 import BattlePage from "./pages/BattlePage";
 import axios from 'axios';
-import ProtectedRoute from './components/ProtectedRoute';  // Import the ProtectedRoute component
+import ProtectedRoute from './components/ProtectedRoute'; 
+import CompareTeamsPage from "./pages/CompareTeamsPage";
 
 // Check if the token exists in localStorage and set it in Axios default headers
 const token = localStorage.getItem('token');
@@ -77,6 +78,15 @@ const App = () => {
                         element={
                             <ProtectedRoute>
                                 <BattlePage />
+                            </ProtectedRoute>
+                        } 
+                    />
+                    
+                    <Route 
+                        path="/compare" 
+                        element={
+                            <ProtectedRoute>
+                                <CompareTeamsPage />
                             </ProtectedRoute>
                         } 
                     />

@@ -1,188 +1,66 @@
-/* General Styles */
-.battle-page {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .teams {
+/* Navbar */
+.navbar {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-  }
-  
-  .player {
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between; /* Space between logo, links, and theme toggle */
     align-items: center;
-  }
-  
-  .player img {
-    width: 100px;
-    height: 100px;
-  }
-  
-  .battle-field {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .pokemon {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .pokemon div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .pokemon button {
-    margin-top: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .battle-log {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    width: 50%;
-    margin: 20px auto;
-  }
-  
-  .battle-log ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .battle-log li {
-    margin-bottom: 10px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Title Styling */
-  .title {
-    font-size: 2.5rem;
+    position: relative;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
     font-weight: bold;
-    text-align: center;
-    margin: 20px 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  /* Dark Mode Title Color */
-  body.dark .title {
-    color: #f9f9f9; /* Light color for dark mode */
-  }
-  
-  /* Light Mode Title Color */
-  body.light .title {
-    color: #333; /* Dark color for light mode */
-  }
-  
-  /* Pokémon Cards */
-  .pokemon-card {
-    background-color: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 180px; /* Fixed width for all cards */
-    height: 300px; /* Fixed height to ensure uniformity */
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-links {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Distributes content evenly */
-    box-sizing: border-box;
-  }
-  
-  .pokemon-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  }
-  
-  .pokemon-card img {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
-    object-fit: contain; /* Ensures the image fits without distortion */
-  }
-  
-  .pokemon-card h3 {
-    font-size: 1.2rem;
-    color: #007bff;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    white-space: nowrap; /* Prevents text from wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Adds "..." if the name is too long */
-  }
-  
-  /* Type Badges */
-  .type-badges {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap; /* Allows badges to wrap within the card */
-    justify-content: center;
-    gap: 5px; /* Adds spacing between badges */
-  }
-  
-  .type-badge {
-    display: inline-block;
+    gap: 15px;
+    list-style: none;
+    justify-content: center; /* Center the links */
+    flex-grow: 1; /* Allow links to take up remaining space */
+}
+
+.nav-links a,
+.nav-links .logout-button {
+    display: flex; /* Use flexbox to center text */
+    align-items: center; /* Vertically center text */
+    justify-content: center; /* Horizontally center text */
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
     padding: 5px 10px;
-    font-size: 0.8rem;
-    color: white;
-    border-radius: 12px;
-    margin: 2px;
-    text-transform: capitalize;
-  }
-  
-  /* Colors for Type Badges */
-  .type-badge.fire { background-color: #f08030; }
-  .type-badge.water { background-color: #6890f0; }
-  .type-badge.grass { background-color: #78c850; }
-  .type-badge.electric { background-color: #f8d030; }
-  .type-badge.ice { background-color: #98d8d8; }
-  .type-badge.fighting { background-color: #c03028; }
-  .type-badge.poison { background-color: #a040a0; }
-  .type-badge.ground { background-color: #e0c068; }
-  .type-badge.flying { background-color: #a890f0; }
-  .type-badge.psychic { background-color: #f85888; }
-  .type-badge.bug { background-color: #a8b820; }
-  .type-badge.rock { background-color: #b8a038; }
-  .type-badge.ghost { background-color: #705898; }
-  .type-badge.dragon { background-color: #7038f8; }
-  .type-badge.dark { background-color: #705848; }
-  .type-badge.steel { background-color: #b8b8d0; }
-  .type-badge.fairy { background-color: #f0b6bc; }
-  .type-badge.normal { background-color: #a8a878; }
-  
-  .pokemon-card button {
-    margin-top: auto;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+    border-radius: 5px;
+    background: none;
     border: none;
     cursor: pointer;
+}
+
+/* Hover Effect for Links and Logout Button */
+.nav-links a:hover,
+.nav-links .logout-button:hover {
+    background-color: #ff9100;
+    color: white;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+    background: none;
+    border: 2px solid #ff9100;
+    padding: 5px 15px;
     border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-  }
-  
-  .pokemon-card button:hover {
-    background-color: #0056b3;
-  }  
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    margin-left: auto; /* Push the button to the far right */
+}
+
+/* Hover Effect for Theme Toggle */
+.theme-toggle-button:hover {
+    background-color: #ff9100;
+    color: white;
+    border-color: white;
+}

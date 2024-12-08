@@ -7,4 +7,3 @@ Add a search bar for team names,
 Show loading spinners or progress bars when fetching data during API calls (Optional),
 Show confirmations for actions like "Delete Team.",
 Finish README.md.
-
