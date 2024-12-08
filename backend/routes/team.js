@@ -4,6 +4,10 @@ const protect = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
+require('dotenv').config();
+console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
+
 // Add a new team
 router.post('/add', protect, async (req, res) => {
     const { name, members } = req.body;

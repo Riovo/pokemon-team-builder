@@ -209,9 +209,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any inquiries or issues, feel free to reach out to [mouhammedmax@hotmail.com](mailto:mouhammedmax@hotmail.com) or [davidekpechue@gmail.com
-](mailto:davidekpechue@gmail.com
-). You can also find us on GitHub at [Riovo](https://github.com/Riovo) or [DavidEkpechue](https://github.com/DavidEkpechue).
+For any inquiries or issues, feel free to reach out to [mouhammedmax@hotmail.com](mailto:mouhammedmax@hotmail.com) 
+or 
+[davidekpechue@gmail.com](mailto:davidekpechue@gmail.com). You can also find us on GitHub at [Riovo](https://github.com/Riovo) or [DavidEkpechue](https://github.com/DavidEkpechue).
 
 ---
 

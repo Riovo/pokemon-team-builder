@@ -187,3 +187,54 @@ button:hover {
 .pokemon-card button:hover {
   background-color: #0056b3;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .teams, .battle-field {
+    flex-direction: column; /* Stack teams and fields vertically */
+    align-items: center;
+  }
+
+  .battle-log {
+    width: 90%; /* Take up more space on smaller screens */
+  }
+
+  .pokemon-card {
+    width: 150px; /* Reduce width */
+    height: 250px; /* Reduce height */
+  }
+
+  .pokemon-card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pokemon-card h3 {
+    font-size: 1rem; /* Adjust text size */
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem; /* Smaller title font */
+  }
+
+  .pokemon-card {
+    width: 120px; /* Further reduce card size */
+    height: 200px;
+    padding: 10px;
+  }
+
+  .pokemon-card h3 {
+    font-size: 0.9rem; /* Smaller font size */
+  }
+
+  .pokemon-card button {
+    font-size: 0.8rem; /* Smaller button font */
+    padding: 8px;
+  }
+
+  .battle-log {
+    padding: 15px; /* Reduce padding */
+  }
+}

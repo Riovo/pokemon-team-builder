@@ -1,66 +1,140 @@
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between; /* Space between logo, links, and theme toggle */
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    position: relative;
-}
-
-.navbar .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
+/* Navbar Links Popup */
 .nav-links {
-    display: flex;
-    gap: 15px;
-    list-style: none;
-    justify-content: center; /* Center the links */
-    flex-grow: 1; /* Allow links to take up remaining space */
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px; /* Slightly below the navbar */
+    right: 10px; /* Align to the right */
+    width: 250px; /* Increase width for more room */
+    background-color: #007bff; /* Background color */
+    border-radius: 12px; /* Smooth rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Softer shadow for better visibility */
+    flex-direction: column; /* Stack items vertically */
+    padding: 20px; /* Add generous padding inside */
+    z-index: 100; /* Ensure it appears above other elements */
 }
 
+/* Display the menu when open */
+.nav-links.open {
+    display: flex;
+}
+
+/* Style each link and button */
 .nav-links a,
+.nav-links .theme-toggle-button,
 .nav-links .logout-button {
-    display: flex; /* Use flexbox to center text */
-    align-items: center; /* Vertically center text */
-    justify-content: center; /* Horizontally center text */
-    text-decoration: none;
+    text-align: center; /* Center align text */
+    padding: 15px; /* Add more padding for spacing */
+    margin: 10px 0; /* Add spacing between items */
+    text-decoration: none; /* Remove underline */
+    color: white; /* White text for contrast */
+    font-size: 1.2rem; /* Slightly larger font for readability */
+    border: 3px solid black; /* Add a thick black border */
+    border-radius: 10px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s ease; /* Smooth hover effect */
+    background-color: transparent; /* Transparent by default */
+}
+
+/* Hover effect for links and buttons */
+.nav-links a:hover,
+.nav-links .theme-toggle-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
     color: white;
-    font-size: 1rem;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    padding: 5px 10px;
-    border-radius: 5px;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Style for the "Logout" button */
+.nav-links .logout-button {
+    background-color: #ff4444; /* Red background */
+    border: 3px solid black; /* Black border */
+    color: white; /* White text */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-links .logout-button:hover {
+    background-color: #cc0000; /* Darker red on hover */
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+
+/* Hamburger Menu Icon */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px; /* Larger icon */
+    height: 25px; /* Adjust height */
     background: none;
     border: none;
     cursor: pointer;
+    z-index: 101; /* Above the menu */
 }
 
-/* Hover Effect for Links and Logout Button */
-.nav-links a:hover,
-.nav-links .logout-button:hover {
-    background-color: #ff9100;
-    color: white;
+.hamburger .bar {
+    height: 3px;
+    width: 100%;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 
-/* Theme Toggle Button */
-.theme-toggle-button {
-    background: none;
-    border: 2px solid #ff9100;
-    padding: 5px 15px;
-    border-radius: 5px;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    margin-left: auto; /* Push the button to the far right */
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Adjust Navbar Popup for Mobile */
+    .nav-links {
+        width: 90%; /* Take up most of the screen width */
+        right: 5%; /* Center horizontally */
+        padding: 15px; /* Reduce padding slightly */
+    }
+
+    .nav-links a,
+    .nav-links .theme-toggle-button,
+    .nav-links .logout-button {
+        font-size: 1rem; /* Reduce font size for better fit */
+        padding: 12px; /* Adjust padding for mobile */
+    }
+
+    .nav-links .logout-button {
+        padding: 12px; /* Consistent padding for logout */
+    }
+
+    .nav-links.open {
+        display: flex; /* Show links when menu is open */
+    }
+
+    .hamburger {
+        width: 25px; /* Slightly smaller hamburger for mobile */
+        height: 20px;
+    }
+
+    .hamburger .bar {
+        height: 2px; /* Slimmer bars for compact design */
+    }
 }
 
-/* Hover Effect for Theme Toggle */
-.theme-toggle-button:hover {
-    background-color: #ff9100;
-    color: white;
-    border-color: white;
+@media (max-width: 480px) {
+    /* Additional Adjustments for Smaller Screens */
+    .nav-links {
+        width: 100%; /* Full width for tiny devices */
+        right: 0; /* Align to the right edge */
+        top: 40px; /* Adjust positioning */
+        border-radius: 0; /* Remove rounded corners */
+        padding: 10px; /* Reduce padding */
+    }
+
+    .nav-links a,
+    .nav-links .theme-toggle-button,
+    .nav-links .logout-button {
+        font-size: 0.9rem; /* Smaller text for very small screens */
+        padding: 10px; /* Consistent smaller padding */
+    }
+
+    .hamburger {
+        width: 20px; /* Smaller icon */
+        height: 15px;
+    }
+
+    .hamburger .bar {
+        height: 2px; /* Slim bars for compact design */
+    }
 }

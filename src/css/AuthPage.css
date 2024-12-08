@@ -90,3 +90,64 @@
 .error-message.general-error {
     color: #f57c00;
 }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-page {
+        margin: 30px auto; /* Reduce margin for smaller devices */
+        padding: 15px; /* Reduce padding for better fit */
+        max-width: 90%; /* Use more of the screen width */
+    }
+
+    .auth-page h2 {
+        font-size: 1.3rem; /* Adjust font size for smaller screens */
+    }
+
+    .auth-page input {
+        font-size: 0.95rem; /* Slightly smaller input font */
+        padding: 8px; /* Reduce padding for better fit */
+    }
+
+    .auth-page button {
+        font-size: 1rem; /* Adjust button text size */
+        padding: 8px; /* Reduce padding for smaller screens */
+    }
+
+    .auth-page p {
+        font-size: 0.9rem; /* Smaller font for paragraphs */
+    }
+
+    .error-message {
+        font-size: 0.8rem; /* Smaller font for error messages */
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-page {
+        margin: 20px auto; /* Further reduce margin for tiny screens */
+        padding: 10px; /* Tighten padding */
+        max-width: 95%; /* Almost full-width for tiny devices */
+    }
+
+    .auth-page h2 {
+        font-size: 1.2rem; /* Smaller header size */
+    }
+
+    .auth-page input {
+        font-size: 0.9rem; /* Adjust input font size */
+        padding: 6px; /* Compact padding */
+    }
+
+    .auth-page button {
+        font-size: 0.95rem; /* Adjust button size */
+        padding: 6px; /* Reduce padding */
+    }
+
+    .auth-page p {
+        font-size: 0.85rem; /* Compact paragraph font */
+    }
+
+    .error-message {
+        font-size: 0.75rem; /* Smaller error message size */
+    }
+}

@@ -1,33 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = ({ isLoggedIn, onLogout, darkMode, toggleTheme }) => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => setMenuOpen(!menuOpen);
+
     return (
-        <nav className="navbar"> {/* Main container for the navigation bar */}
-            <div className="logo"> {/* Logo section of the navbar */}
-                <Link to="/">Pokemon Team Builder</Link> {/* Link to the home page */}
+        <nav className="navbar">
+            <div className="logo">
+                <Link to="/">Pokemon Team Builder</Link>
             </div>
-            <div className="nav-links"> {/* Navigation links */}
-                <Link to="/">Home</Link> {/* Link to the home page */}
-                {isLoggedIn ? (  // Conditional rendering based on login status
+            <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+                <Link to="/">Home</Link>
+                {isLoggedIn ? (
                     <>
-                        <Link to="/create-team">Create Team</Link> {/* Link to create a new team */}
-                        <Link to="/teams">View Saved Teams</Link> {/* Link to view saved teams */}
-                        <Link to="/compare">Compare Teams</Link> {/* Link to compare teams */}
-                        <button className="logout-button" onClick={onLogout}>  {/* Logout button */}
+                        <Link to="/create-team">Create Team</Link>
+                        <Link to="/teams">View Saved Teams</Link>
+                        <Link to="/compare">Compare Teams</Link>
+                        <button className="logout-button" onClick={onLogout}>
                             Logout
                         </button>
                     </>
                 ) : (
                     <>
-                        <Link to="/register">Register</Link> {/* Link to the registration page */}
-                        <Link to="/login">Login</Link> {/* Link to the login page */}
+                        <Link to="/register">Register</Link>
+                        <Link to="/login">Login</Link>
                     </>
                 )}
+                <button className="theme-toggle-button" onClick={toggleTheme}>
+                    {darkMode ? "Light Mode" : "Dark Mode"}
+                </button>
             </div>
-            <button className="theme-toggle-button" onClick={toggleTheme}> {/* Button to toggle theme */}
-                {darkMode ? "Light Mode" : "Dark Mode"} {/* Display text based on the current theme */}
+            <button className="hamburger" onClick={toggleMenu}>
+                <span className="bar"></span>
+                <span className="bar"></span>
+                <span className="bar"></span>
             </button>
         </nav>
     );

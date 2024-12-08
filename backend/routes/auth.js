@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 
+
+
 require('dotenv').config(); // Load environment variables
 
 // Register Route

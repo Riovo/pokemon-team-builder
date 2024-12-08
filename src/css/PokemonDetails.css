@@ -10,6 +10,7 @@
     animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
     background: rgba(255, 255, 255, 0.9); /* Slight opacity for readability */
     color: #333; /* Dark text */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
 /* Pokémon Image Styling */
@@ -38,6 +39,7 @@
     display: flex;
     justify-content: center;
     gap: 20px;
+    flex-wrap: wrap; /* Wrap for smaller screens */
 }
 
 /* Evolution Chain Item */
@@ -122,14 +124,47 @@ body.dark .stats li:hover {
     color: #ffd700; /* Gold text on hover */
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
+/* Responsive Design for Tablets and Small Screens */
+@media (max-width: 768px) {
+    .pokemon-details {
+        padding: 15px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .evolution-chain img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .stats li {
+        font-size: 0.9rem; /* Slightly smaller font */
+        padding: 8px; /* Reduce padding */
+    }
+}
+
+/* Responsive Design for Mobile Screens */
+@media (max-width: 480px) {
+    .pokemon-details {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .pokemon-details img {
+        width: 120px;
+        height: 120px;
+        padding: 8px;
+    }
+
+    .evolution-chain img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .evolution-chain span {
+        font-size: 0.8rem; /* Smaller font for text */
+    }
+
+    .stats li {
+        font-size: 0.8rem; /* Reduce font size for stats */
+        padding: 6px;
     }
 }
