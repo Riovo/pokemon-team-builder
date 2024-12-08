@@ -17,11 +17,6 @@
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.team-card:hover {
-    transform: scale(1.02);
 }
 
 body.dark .team-card {
@@ -93,6 +88,26 @@ body.dark .pokemon-card {
     text-transform: capitalize;
 }
 
+/* Type Badge Colors */
+.type-badge.normal { background-color: #A8A878; }
+.type-badge.fire { background-color: #F08030; }
+.type-badge.water { background-color: #6890F0; }
+.type-badge.grass { background-color: #78C850; }
+.type-badge.electric { background-color: #F8D030; }
+.type-badge.ice { background-color: #98D8D8; }
+.type-badge.fighting { background-color: #C03028; }
+.type-badge.poison { background-color: #A040A0; }
+.type-badge.ground { background-color: #E0C068; }
+.type-badge.flying { background-color: #A890F0; }
+.type-badge.psychic { background-color: #F85888; }
+.type-badge.bug { background-color: #A8B820; }
+.type-badge.rock { background-color: #B8A038; }
+.type-badge.ghost { background-color: #705898; }
+.type-badge.dragon { background-color: #7038F8; }
+.type-badge.dark { background-color: #705848; }
+.type-badge.steel { background-color: #B8B8D0; }
+.type-badge.fairy { background-color: #EE99AC; }
+
 /* Team Summary Styling */
 .team-summary {
     display: flex;
@@ -141,88 +156,140 @@ body.dark .team-summary {
     min-width: 80px;
 }
 
-/* Responsive Design for Tablets and Small Screens */
-@media (max-width: 768px) {
-    .teams-page {
-        padding: 15px;
-    }
-
-    .team-card {
-        padding: 15px;
-    }
-
-    .pokemon-container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Smaller columns for tablets */
-    }
-
-    .pokemon-card {
-        padding: 10px;
-    }
-
-    .pokemon-card h3 {
-        font-size: 1rem;
-    }
-
-    .team-summary {
-        gap: 15px;
-        padding: 15px;
-    }
-
-    .team-summary h3 {
-        font-size: 1.3rem;
-    }
-
-    .type-item {
-        flex-direction: column;
-        align-items: center;
-    }
+.type-count {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
 }
 
-/* Responsive Design for Mobile Screens */
-@media (max-width: 480px) {
-    .teams-page {
-        padding: 10px;
-    }
+body.dark .type-count {
+    color: #f9f9f9;
+}
 
-    .team-card {
-        padding: 10px;
-    }
+/* Pokémon Stats */
+.pokemon-stats {
+    margin-top: 20px;
+    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    .pokemon-container {
-        grid-template-columns: 1fr; /* Single column for small screens */
-    }
+body.dark .pokemon-stats {
+    background-color: #2e2e2e;
+    border-color: #555;
+}
 
-    .pokemon-card {
-        padding: 8px;
-    }
+.pokemon-stats h4 {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
 
-    .pokemon-card h3 {
-        font-size: 0.9rem;
-    }
+/* Stat Row */
+.stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
 
-    .type-badge-grid {
-        gap: 3px;
-    }
+/* Stat Name */
+.stat-name {
+    width: 100px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: capitalize;
+}
 
-    .type-badge {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-    }
+/* Stat Value */
+.stat-value {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    text-align: right;
+    color: #333;
+}
 
-    .team-summary {
-        padding: 10px;
-    }
+body.dark .stat-value {
+    color: #f9f9f9;
+}
 
-    .team-summary h3 {
-        font-size: 1.2rem;
-    }
+/* Stat Bar Container */
+.stat-bar-container {
+    flex-grow: 1;
+    height: 15px;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+}
 
-    .type-list {
-        grid-template-columns: 1fr; /* Single column for type list */
-    }
+/* Stat Bars with Dynamic Colors */
+.stat-bar {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.3s ease;
+}
 
-    .type-item {
-        flex-direction: column;
-        align-items: center;
-    }
+.stat-bar.hp {
+    background-color: #ff5959; /* Red for HP */
+}
+
+.stat-bar.attack {
+    background-color: #f5ac78; /* Orange for Attack */
+}
+
+.stat-bar.defense {
+    background-color: #fae078; /* Yellow for Defense */
+}
+
+.stat-bar.special-attack {
+    background-color: #9db7f5; /* Blue for Special Attack */
+}
+
+.stat-bar.special-defense {
+    background-color: #a7db8d; /* Green for Special Defense */
+}
+
+.stat-bar.speed {
+    background-color: #fa92b2; /* Pink for Speed */
+}
+
+/* More Info Button */
+.more-info-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.more-info-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.delete-team-button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-team-button:hover {
+    background-color: #b02a37;
+    transform: scale(1.05);
 }

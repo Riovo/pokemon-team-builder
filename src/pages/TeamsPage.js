@@ -27,10 +27,11 @@ const TYPE_EFFECTIVENESS = {
 const TeamsPage = () => {
     const [teams, setTeams] = useState([]); // State for storing user's teams
     const [loading, setLoading] = useState(true); // State to indicate if teams are being loaded
+    const [searchQuery, setSearchQuery] = useState(""); // State for the search input value
 
     // Fetch saved teams from the backend
     useEffect(() => {
-        const token = localStorage.getItem("token"); // Get token from localStorage
+        const token = localStorage.getItem("token"); // Get the token from localStorage
 
         if (!token) {
             alert("You must be logged in to view your teams.");
@@ -42,19 +43,24 @@ const TeamsPage = () => {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
-                setTeams(response.data.teams || []); // Set teams data
-                setLoading(false); // Set loading to false once data is fetched
+                setTeams(response.data.teams || []); // Store the fetched teams in state
+                setLoading(false); // Stop loading once data is fetched
             })
             .catch((error) => {
                 console.error("Error fetching teams: ", error);
                 alert("There was an error fetching your teams.");
-                setLoading(false); // Set loading to false even if there's an error
+                setLoading(false); // Stop loading even if there’s an error
             });
     }, []);
 
+    // Filter teams based on the search query
+    const filteredTeams = teams.filter((team) =>
+        team.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     // Function to delete a team
     const handleDeleteTeam = (teamName) => {
-        const token = localStorage.getItem("token"); // Get token from localStorage
+        const token = localStorage.getItem("token");
 
         if (!token) {
             alert("You must be logged in to delete a team.");
@@ -78,28 +84,40 @@ const TeamsPage = () => {
     };
 
     if (loading) {
-        return <p>Loading teams...</p>; // Show loading message while teams are being fetched
+        return <p>Loading teams...</p>; // Display a loading message while fetching data
     }
 
     return (
         <div className="teams-page">
             <h1>Your Saved Teams</h1>
-            {teams.length > 0 ? (
-                teams.map((team, index) => (
+
+            {/* Search bar for filtering teams */}
+            <div className="team-search-bar">
+                <input
+                    type="text"
+                    placeholder="Search team names..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)} // Update the search query state on input change
+                />
+                <button onClick={() => setSearchQuery("")}>Clear</button> {/* Optional Clear Button */}
+            </div>
+
+            {filteredTeams.length > 0 ? (
+                filteredTeams.map((team, index) => (
                     <TeamCard key={index} team={team} handleDeleteTeam={handleDeleteTeam} />
                 ))
             ) : (
-                <p>No teams saved yet!</p> // Show message if there are no saved teams
+                <p>No teams match your search!</p> // Display if no teams match the search query
             )}
         </div>
     );
 };
 
-// Component to render a team's details and stats
+// TeamCard component for rendering team details and stats
 const TeamCard = ({ team, handleDeleteTeam }) => {
-    const [showInfo, setShowInfo] = useState(false); // State to toggle showing more info
+    const [showInfo, setShowInfo] = useState(false); // State for toggling additional team info
 
-    // Function to calculate team strengths and weaknesses based on types
+    // Function to calculate team strengths and weaknesses
     const calculateTypeSummary = (team) => {
         const weaknesses = {};
         const strengths = {};
@@ -124,7 +142,7 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
         return { weaknesses, strengths };
     };
 
-    const { weaknesses, strengths } = calculateTypeSummary(team.members || []); // Calculate weaknesses and strengths for the team
+    const { weaknesses, strengths } = calculateTypeSummary(team.members || []); // Calculate strengths and weaknesses for the team
 
     return (
         <div className="team-card">
@@ -140,7 +158,6 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
                             />
                             <h3>{pokemon.name.toUpperCase()}</h3>
 
-                            {/* Add Type Cards Below the Name */}
                             <div className="type-badge-grid">
                                 {pokemon.types?.map((type) => (
                                     <div key={type} className={`type-badge ${type.toLowerCase()}`}>
@@ -151,19 +168,19 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
                         </div>
                     ))
                 ) : (
-                    <p>No Pokémon found in this team!</p> // Show message if there are no Pokémon in the team
+                    <p>No Pokémon found in this team!</p>
                 )}
             </div>
 
             <button
                 className="delete-team-button"
-                onClick={() => handleDeleteTeam(team.name)} // Delete team when button is clicked
+                onClick={() => handleDeleteTeam(team.name)}
             >
                 Delete Team
             </button>
             <button
                 className="more-info-button"
-                onClick={() => setShowInfo((prev) => !prev)} // Toggle visibility of team info
+                onClick={() => setShowInfo((prev) => !prev)}
             >
                 {showInfo ? "Hide Info" : "More Info"}
             </button>
@@ -210,21 +227,21 @@ const TeamCard = ({ team, handleDeleteTeam }) => {
     );
 };
 
+// PokemonStats component for rendering individual Pokémon stats
 const PokemonStats = ({ pokemonName }) => {
-    const [stats, setStats] = useState(null); // State to store Pokémon stats
+    const [stats, setStats] = useState(null);
 
     useEffect(() => {
         axios
             .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`)
-            .then((response) => setStats(response.data.stats)) // Fetch and set stats
+            .then((response) => setStats(response.data.stats))
             .catch((error) => console.error("Error fetching Pokémon stats:", error));
     }, [pokemonName]);
 
     if (!stats) {
-        return <p>Loading stats for {pokemonName.toUpperCase()}...</p>; // Show loading message if stats are not available
+        return <p>Loading stats for {pokemonName.toUpperCase()}...</p>;
     }
 
-    // Map stat names to CSS class names for styling
     const statNameToClass = {
         hp: "hp",
         attack: "attack",
@@ -243,9 +260,7 @@ const PokemonStats = ({ pokemonName }) => {
                     <div className="stat-bar-container">
                         <div
                             className={`stat-bar ${statNameToClass[stat.stat.name]}`}
-                            style={{
-                                width: `${(stat.base_stat / 255) * 100}%`, // Set bar width based on stat value
-                            }}
+                            style={{ width: `${(stat.base_stat / 255) * 100}%` }}
                         ></div>
                     </div>
                     <span className="stat-value">{stat.base_stat}</span>
@@ -255,4 +270,4 @@ const PokemonStats = ({ pokemonName }) => {
     );
 };
 
-export default TeamsPage; // Export the TeamsPage component
+export default TeamsPage;
