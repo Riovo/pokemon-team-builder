@@ -35,20 +35,19 @@ body.dark {
 
 /* Winning team styling */
 .team-win {
-    background-color: #2c2c2c; /* Default background for winners */
-    color: #f7f7f7;
+    background-color: #e8f5e9; /* Light green for winners */
+    color: #2e7d32; /* Dark green text */
 }
 
-/* Losing team styling */
 .team-lose {
-    background-color: #ff4444; /* Red background for losers */
-    color: white;
+    background-color: #ff6b6b; /* Red background for losers */
+    color: white; /* White text */
 }
 
 /* Light mode adjustments */
 body.light .team-win {
-    background-color: #f7f7f7;
-    color: black;
+    background-color: #e8f5e9;
+    color: #2e7d32;
 }
 
 body.light .team-lose {
@@ -79,14 +78,32 @@ body.light .team-lose {
 
 /* Pokémon stats card */
 .pokemon-stats {
-    width: 200px;
-    background-color: #333;
+    width: 220px;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    color: #f7f7f7;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode card styling */
+body.light .pokemon-stats {
+    background-color: #ffffff; /* White background */
+    color: #333; /* Black text */
+}
+
+body.light .pokemon-stats ul li span {
+    color: #4caf50; /* Green for stats */
+}
+
+/* Dark mode card styling */
+body.dark .pokemon-stats {
+    background-color: #333; /* Black background */
+    color: #f7f7f7; /* White text */
+}
+
+body.dark .pokemon-stats ul li span {
+    color: #4caf50; /* Green for stats */
 }
 
 /* Hover effect for Pokémon cards */
@@ -107,7 +124,7 @@ body.light .team-lose {
 
 /* Pokémon name styling */
 .pokemon-stats h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin-bottom: 15px;
     color: #007bff;
     text-transform: uppercase;
@@ -127,12 +144,8 @@ body.light .team-lose {
     margin-bottom: 8px;
     font-size: 1.1rem;
     font-weight: bold;
-}
-
-/* Highlight specific stats */
-.pokemon-stats ul li span {
-    color: #4caf50;
-    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Responsive Adjustments */
@@ -155,108 +168,94 @@ body.light .team-lose {
         font-size: 1.1rem;
     }
 }
-/* Adjust Team Styling */
-.team1-section, .team2-section {
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Team Selection Container */
+.team-selection-container {
+    display: flex; /* Use flexbox to align items side by side */
+    justify-content: center; /* Center the content */
+    gap: 20px; /* Add space between the dropdowns */
+    margin-bottom: 30px;
+
 }
 
-/* Winner and Loser Styling */
-.team-win {
-    background-color: #f7f7f7; /* White for winners */
-    color: black;
+.compare-teams-page-h1-title {
+    display: flex; /* Use flexbox to align items side by side */
+    justify-content: center; /* Center the content */
+    gap: 20px; /* Add space between the dropdowns */
+    margin-bottom: 30px;
 }
 
-.team-lose {
-    background-color: #ffe6e6; /* Light red for losers */
-    color: black;
+.compare-teams-page-p {
+    display: flex; /* Use flexbox to align items side by side */
+    justify-content: center; /* Center the content */
+    gap: 20px; /* Add space between the dropdowns */
+    margin-bottom: 30px;
 }
 
-/* Pokémon Stats Cards */
-.pokemon-stats {
-    width: 220px;
-    background-color: #ffffff;
+/* Individual Team Selection Box */
+.team-selection {
+    flex: 1;
+    max-width: 300px; /* Ensure a consistent width for each dropdown box */
+    background-color: #ffffff; /* Default white background */
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover Effect */
-.pokemon-stats:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+/* Light mode for team selection */
+body.light .team-selection {
+    background-color: #ffffff; /* White background */
+    color: #333; /* Black text */
 }
 
-/* Pokémon Image */
-.pokemon-stats img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
+/* Dark mode for team selection */
+body.dark .team-selection {
+    background-color: #333; /* Dark background */
+    color: #f7f7f7; /* White text */
 }
 
-/* Pokémon Name */
-.pokemon-stats h4 {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 15px;
-}
-
-/* Pokémon Stats */
-.pokemon-stats ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+/* Dropdown Styling */
+.team-selection select {
+    width: 100%; /* Full width for the dropdown */
+    padding: 10px;
     font-size: 1rem;
-    font-weight: bold;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9; /* Default dropdown background */
+    color: #333; /* Default dropdown text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Light mode for dropdown */
+body.light .team-selection select {
+    background-color: #f9f9f9;
     color: #333;
-    text-align: left;
 }
 
-/* Stat Styling */
-.pokemon-stats ul li {
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: normal;
+/* Dark mode for dropdown */
+body.dark .team-selection select {
+    background-color: #444; /* Dark dropdown background */
+    color: #f7f7f7; /* White text */
+    border: 1px solid #555; /* Subtle border */
 }
 
-.pokemon-stats ul li span {
-    color: #4caf50;
+/* Dropdown Hover and Focus Effects */
+.team-selection select:focus,
+.team-selection select:hover {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Header Styling for Selection */
+.team-selection h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
     font-weight: bold;
+    color: inherit; /* Inherit color from the parent container */
 }
 
-/* Light Mode Adjustments */
-body.light .team-win {
-    background-color: #f7f7f7;
-    color: black;
-}
-
-body.light .team-lose {
-    background-color: #ffcccc;
-    color: black;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .teams-facing-container {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .pokemon-stats {
-        width: 180px;
-    }
-
-    .pokemon-stats img {
-        width: 90px;
-        height: 90px;
-    }
+/* Dark mode adjustment for heading */
+body.dark .team-selection h2 {
+    color: #f7f7f7; /* Ensure text is white in dark mode */
 }

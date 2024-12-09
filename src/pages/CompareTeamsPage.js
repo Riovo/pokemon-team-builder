@@ -179,35 +179,40 @@ const CompareTeamsPage = () => {
 
     return (
         <div className={`compare-teams-page ${darkMode ? "dark" : "light"}`}>
-            <h1>Compare Two Teams</h1>
+            <div className="compare-teams-page-h1-title">
+                <h1>Compare Two Teams</h1>
+            </div>
+            
 
-            <div className="team-selection">
-                <h2>Select Team 1</h2>
-                <select onChange={(e) => setSelectedTeam1(teams[e.target.value])}>
-                    <option value="">-- Choose Team --</option>
-                    {teams.map((team, index) => (
-                        <option key={team.name} value={index}>
-                            {team.name}
-                        </option>
-                    ))}
-                </select>
+            <div className="team-selection-container">
+                <div className="team-selection">
+                    <h2>Select Team 1</h2>
+                    <select onChange={(e) => setSelectedTeam1(teams[e.target.value])}>
+                        <option value="">-- Choose Team --</option>
+                        {teams.map((team, index) => (
+                            <option key={team.name} value={index}>
+                                {team.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="team-selection">
+                    <h2>Select Team 2</h2>
+                    <select onChange={(e) => setSelectedTeam2(teams[e.target.value])}>
+                        <option value="">-- Choose Team --</option>
+                        {teams.map((team, index) => (
+                            <option key={team.name} value={index}>
+                                {team.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
             </div>
 
-            <div className="team-selection">
-                <h2>Select Team 2</h2>
-                <select onChange={(e) => setSelectedTeam2(teams[e.target.value])}>
-                    <option value="">-- Choose Team --</option>
-                    {teams.map((team, index) => (
-                        <option key={team.name} value={index}>
-                            {team.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
 
             {selectedTeam1 && selectedTeam2 && (
     <div className="teams-facing-container">
-    {/* Team 1 Section */}
     <div
         className={`team1-section ${
             comparisonResult?.team1WinPercent > comparisonResult?.team2WinPercent
@@ -240,7 +245,6 @@ const CompareTeamsPage = () => {
         </div>
     </div>
 
-    {/* Team 2 Section */}
     <div
         className={`team2-section ${
             comparisonResult?.team2WinPercent > comparisonResult?.team1WinPercent
@@ -278,7 +282,9 @@ const CompareTeamsPage = () => {
 
 
             {!selectedTeam1 || !selectedTeam2 ? (
-                <p>Please select two teams to compare.</p>
+                <div className="compare-teams-page-p">
+                    <p>Please select two teams to compare.</p>
+                </div>
             ) : null}
         </div>
     );
