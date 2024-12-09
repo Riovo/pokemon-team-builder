@@ -310,6 +310,7 @@ body.dark .stat-value {
 
 /* More Info Button */
 .more-info-button {
+    margin-left: 5px;
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #007bff;
